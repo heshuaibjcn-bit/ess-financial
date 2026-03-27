@@ -96,3 +96,76 @@ textarea:focus-visible {
     display: none !important;
   }
 }
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  /* Improve touch targets */
+  button, a, input, select, textarea {
+    min-height: 44px;
+  }
+
+  /* Better mobile spacing */
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  /* Mobile-friendly cards */
+  .grid-cols-2 {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+
+  .grid-cols-3 {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+
+  .grid-cols-4 {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+
+  /* Better mobile text */
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  h2 {
+    font-size: 1.25rem;
+  }
+
+  h3 {
+    font-size: 1.125rem;
+  }
+
+  /* Improve button spacing on mobile */
+  button + button {
+    margin-top: 0.5rem;
+  }
+
+  /* Stack flex containers on mobile */
+  .flex-row-mobile {
+    flex-direction: column;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  /* Tablet optimizations */
+  .grid-cols-4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Dark mode support (optional) */
+@media (prefers-color-scheme: dark) {
+  /* Auto dark mode can be enabled here */
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
