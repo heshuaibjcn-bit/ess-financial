@@ -15,6 +15,7 @@ import { useTranslation } from 'react-i18next';
 import { ProjectInput, ProjectInputSchema } from '../domain/schemas/ProjectSchema';
 import { useCalculator } from '../hooks/useCalculator';
 import { useUIStore } from '../stores/uiStore';
+import { QuickFillButton } from './QuickFillButton';
 
 // Import step components
 import { BasicInfoStep } from './form-steps';
@@ -192,9 +193,12 @@ export const CalculatorForm: React.FC<CalculatorFormProps> = ({
           {showProgress && (
             <div className="mb-8">
               <div className="flex items-center justify-between mb-4">
-                <h2 className="text-2xl font-bold text-gray-900">
-                  {t('calculator.title')}
-                </h2>
+                <div className="flex items-center space-x-4">
+                  <h2 className="text-2xl font-bold text-gray-900">
+                    {t('calculator.title')}
+                  </h2>
+                  <QuickFillButton />
+                </div>
                 <span className="text-sm text-gray-500">
                   {t('common.step')} {currentStep + 1} {t('common.of')} {totalSteps}
                 </span>

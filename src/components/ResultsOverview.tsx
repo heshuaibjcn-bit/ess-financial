@@ -15,6 +15,7 @@ import { EngineResult } from '../domain/services/CalculationEngine';
 import { BenchmarkComparison } from '../domain/services/BenchmarkEngine';
 import { AIChatSidebar } from './AIChat';
 import { RevenueBarChart, RevenuePieChart, CashFlowLineChart } from './charts/SimpleCharts';
+import { ProjectComparison } from './ProjectComparison';
 
 interface ResultsOverviewProps {
   result: EngineResult;
@@ -295,6 +296,11 @@ export const ResultsOverview: React.FC<ResultsOverviewProps> = ({
         <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
           <CashFlowLineChart result={result} />
         </div>
+      </div>
+
+      {/* Project Comparison */}
+      <div className="mt-6">
+        <ProjectComparison />
       </div>
 
       {/* Action Buttons */}
