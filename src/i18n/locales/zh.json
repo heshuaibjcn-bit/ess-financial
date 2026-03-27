@@ -1,0 +1,304 @@
+{
+  "app": {
+    "title": "工商业储能投资决策平台",
+    "subtitle": "专业的储能项目投资分析工具"
+  },
+  "nav": {
+    "calculator": "计算器",
+    "projects": "项目管理",
+    "benchmark": "行业基准",
+    "about": "关于"
+  },
+  "calculator": {
+    "title": "投资计算器",
+    "steps": {
+      "basic": "基本信息",
+      "costs": "成本构成",
+      "operations": "运营参数",
+      "financing": "融资方案"
+    },
+    "basic": {
+      "province": "省份",
+      "provincePlaceholder": "选择项目所在省份",
+      "systemSize": "系统规模",
+      "capacity": "装机容量 (MW)",
+      "duration": "放电时长 (小时)"
+    },
+    "costs": {
+      "title": "成本构成 (元/MW或元/项目)",
+      "batteryCost": "电池成本",
+      "batteryCostUnit": "元/kWh",
+      "pcsCost": "PCS成本",
+      "pcsCostUnit": "元/kW",
+      "emsCost": "EMS成本",
+      "emsCostUnit": "元/项目",
+      "installationCost": "安装施工成本",
+      "installationCostUnit": "元/kW",
+      "gridConnectionCost": "电网接入成本",
+      "gridConnectionCostUnit": "元/项目",
+      "landCost": "土地成本",
+      "landCostUnit": "元/年",
+      "developmentCost": "开发成本",
+      "developmentCostUnit": "元/项目",
+      "permittingCost": "许可审批成本",
+      "permittingCostUnit": "元/项目",
+      "contingency": "不可预见费",
+      "totalInvestment": "总投资"
+    },
+    "operations": {
+      "title": "运营参数",
+      "systemEfficiency": "系统效率",
+      "depthOfDischarge": "放电深度 (DOD)",
+      "cyclesPerDay": "日循环次数",
+      "degradationRate": "年衰减率",
+      "availability": "可用率",
+      "systemEfficiencyHelp": "包括PCS、电池和辅助系统的往返效率。典型值：85-92%",
+      "depthOfDischargeHelp": "每次循环的最大放电深度。典型值：80-90%",
+      "cyclesPerDayHelp": "每日完整充放电循环次数。典型值：1-2次",
+      "degradationRateHelp": "年度容量衰减率。典型值：1.5-3%",
+      "availabilityHelp": "系统可运行时间比例。典型值：95-99%"
+    },
+    "financing": {
+      "title": "融资方案",
+      "hasLoan": "是否贷款",
+      "loanRatio": "贷款比例",
+      "loanTerm": "贷款期限",
+      "loanTermYears": "年",
+      "interestRate": "年利率"
+    }
+  },
+  "results": {
+    "title": "投资分析结果",
+    "summary": "投资摘要",
+    "financials": {
+      "irr": "内部收益率 (IRR)",
+      "npv": "净现值 (NPV)",
+      "paybackPeriod": "投资回收期",
+      "lcoe": "平准化成本 (LCOE)"
+    },
+    "revenue": {
+      "title": "收入来源",
+      "arbitrage": "峰谷价差套利",
+      "capacity": "容量补偿",
+      "demandResponse": "需求响应",
+      "auxiliary": "辅助服务",
+      "totalRevenue": "年总收入"
+    },
+    "cashFlow": {
+      "title": "现金流分析",
+      "cumulative": "累积现金流",
+      "annual": "年度现金流",
+      "paybackMarker": "回收点"
+    },
+    "rating": {
+      "excellent": "优秀",
+      "good": "良好",
+      "average": "一般",
+      "belowAverage": "低于平均",
+      "poor": "较差"
+    },
+    "actions": {
+      "save": "保存项目",
+      "export": "导出报告",
+      "share": "分享项目",
+      "recalculate": "重新计算"
+    }
+  },
+  "sensitivity": {
+    "title": "敏感性分析",
+    "description": "分析参数变化对IRR的影响",
+    "parameters": {
+      "batteryCost": "电池成本",
+      "systemSize": "系统规模",
+      "systemEfficiency": "系统效率",
+      "cyclesPerDay": "日循环次数",
+      "depthOfDischarge": "放电深度",
+      "degradationRate": "年衰减率",
+      "peakPrice": "峰值电价",
+      "valleyPrice": "谷值电价"
+    },
+    "variations": {
+      "pessimistic": "-30%",
+      "negative": "-15%",
+      "base": "基准",
+      "positive": "+15%",
+      "optimistic": "+30%"
+    },
+    "tornadoChart": "龙卷风图",
+    "mostSensitive": "最敏感参数",
+    "impact": "影响范围"
+  },
+  "scenarios": {
+    "title": "情景分析",
+    "description": "比较不同情景下的投资回报",
+    "presets": {
+      "optimistic": "乐观情景",
+      "base": "基准情景",
+      "pessimistic": "悲观情景"
+    },
+    "custom": "自定义情景",
+    "createCustom": "创建新情景",
+    "compare": "对比情景",
+    "radarChart": "雷达图对比",
+    "addScenario": "添加情景",
+    "maxScenarios": "最多5个自定义情景"
+  },
+  "benchmark": {
+    "title": "行业基准对比",
+    "description": "与同类项目对比您的投资回报",
+    "comparison": {
+      "yourProject": "您的项目",
+      "comparable": "可比项目",
+      "numberOfProjects": "{{count}}个可比项目",
+      "noComparable": "无可比项目"
+    },
+    "percentiles": {
+      "title": "百分位排名",
+      "top10": "前10%",
+      "top25": "前25%",
+      "aboveAverage": "高于平均",
+      "belowAverage": "低于平均",
+      "bottom25": "后25%"
+    },
+    "distribution": {
+      "title": "分布统计",
+      "mean": "平均值",
+      "median": "中位数",
+      "stdDev": "标准差"
+    },
+    "rating": {
+      "title": "综合评级",
+      "excellent": "优秀",
+      "good": "良好",
+      "average": "平均",
+      "belowAverage": "低于平均",
+      "poor": "较差"
+    },
+    "drivers": {
+      "title": "关键驱动因素",
+      "impact": "影响程度",
+      "high": "高",
+      "medium": "中",
+      "low": "低"
+    }
+  },
+  "projects": {
+    "title": "项目管理",
+    "newProject": "新建项目",
+    "search": "搜索项目",
+    "filter": "筛选",
+    "sort": "排序",
+    "sortOptions": {
+      "updatedAt": "最近更新",
+      "createdAt": "创建时间",
+      "name": "项目名称",
+      "irr": "收益率",
+      "systemSize": "规模",
+      "paybackPeriod": "回收期"
+    },
+    "list": {
+      "name": "项目名称",
+      "province": "省份",
+      "size": "规模",
+      "irr": "IRR",
+      "updatedAt": "更新时间",
+      "actions": "操作"
+    },
+    "actions": {
+      "open": "打开",
+      "duplicate": "复制",
+      "delete": "删除",
+      "export": "导出",
+      "share": "分享",
+      "favorite": "收藏",
+      "unfavorite": "取消收藏"
+    },
+    "deleteConfirm": {
+      "title": "确认删除",
+      "message": "确定要删除项目「{{name}}」吗？此操作无法撤销。",
+      "cancel": "取消",
+      "confirm": "删除"
+    }
+  },
+  "share": {
+    "title": "分享项目",
+    "generateLink": "生成分享链接",
+    "linkExpiry": "链接有效期",
+    "copyLink": "复制链接",
+    "linkCopied": "已复制！",
+    "regenerate": "重新生成链接",
+    "expires": "过期时间",
+    "expiryOptions": {
+      "1d": "1天",
+      "7d": "7天",
+      "30d": "30天",
+      "90d": "90天"
+    },
+    "warning": "警告：拥有此链接的任何人都可以查看该项目（只读模式）"
+  },
+  "language": {
+    "title": "语言",
+    "zh": "中文",
+    "en": "English"
+  },
+  "common": {
+    "save": "保存",
+    "cancel": "取消",
+    "confirm": "确认",
+    "delete": "删除",
+    "edit": "编辑",
+    "duplicate": "复制",
+    "export": "导出",
+    "import": "导入",
+    "close": "关闭",
+    "back": "返回",
+    "next": "下一步",
+    "previous": "上一步",
+    "submit": "提交",
+    "loading": "加载中...",
+    "error": "错误",
+    "success": "成功",
+    "year": "年",
+    "month": "月",
+    "day": "日",
+    "currency": "¥",
+    "percent": "%",
+    "mw": "MW",
+    "mwh": "MWh",
+    "kw": "kW",
+    "kwh": "kWh",
+    "step": "步骤",
+    "of": "/",
+    "times": "次",
+    "hour": "小时",
+    "range": "范围",
+    "summary": "摘要",
+    "loan": "贷款",
+    "equity": "权益",
+    "annual": "年度",
+    "payment": "还款",
+    "total": "总计",
+    "interest": "利息",
+    "no": "否",
+    "yes": "是",
+    "all": "所有",
+    "rights": "权利保留",
+    "data": "数据",
+    "source": "来源"
+  },
+  "errors": {
+    "required": "此字段为必填项",
+    "invalidNumber": "请输入有效数字",
+    "invalidRange": "数值超出有效范围",
+    "calculation": "计算错误",
+    "loadFailed": "加载失败",
+    "saveFailed": "保存失败"
+  },
+  "charts": {
+    "cashFlow": "现金流图",
+    "revenueBreakdown": "收入构成",
+    "sensitivity": "敏感性分析",
+    "scenario": "情景对比",
+    "benchmark": "基准对比"
+  }
+}

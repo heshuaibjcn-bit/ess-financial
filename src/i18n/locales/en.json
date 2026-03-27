@@ -1,0 +1,299 @@
+{
+  "app": {
+    "title": "C&I Energy Storage Investment Platform",
+    "subtitle": "Professional Investment Analysis Tool for Energy Storage Projects"
+  },
+  "nav": {
+    "calculator": "Calculator",
+    "projects": "Projects",
+    "benchmark": "Benchmark",
+    "about": "About"
+  },
+  "calculator": {
+    "title": "Investment Calculator",
+    "steps": {
+      "basic": "Basic Info",
+      "costs": "Cost Structure",
+      "operations": "Operating Parameters",
+      "financing": "Financing"
+    },
+    "basic": {
+      "province": "Province",
+      "provincePlaceholder": "Select project province",
+      "systemSize": "System Size",
+      "capacity": "Capacity (MW)",
+      "duration": "Duration (hours)"
+    },
+    "costs": {
+      "title": "Cost Structure (CNY/MW or CNY/project)",
+      "batteryCost": "Battery Cost",
+      "batteryCostUnit": "CNY/kWh",
+      "pcsCost": "PCS Cost",
+      "pcsCostUnit": "CNY/kW",
+      "emsCost": "EMS Cost",
+      "emsCostUnit": "CNY/project",
+      "installationCost": "Installation Cost",
+      "installationCostUnit": "CNY/kW",
+      "gridConnectionCost": "Grid Connection Cost",
+      "gridConnectionCostUnit": "CNY/project",
+      "landCost": "Land Cost",
+      "landCostUnit": "CNY/year",
+      "developmentCost": "Development Cost",
+      "developmentCostUnit": "CNY/project",
+      "permittingCost": "Permitting Cost",
+      "permittingCostUnit": "CNY/project",
+      "contingency": "Contingency",
+      "totalInvestment": "Total Investment"
+    },
+    "operations": {
+      "title": "Operating Parameters",
+      "systemEfficiency": "System Efficiency",
+      "depthOfDischarge": "Depth of Discharge (DOD)",
+      "cyclesPerDay": "Daily Cycles",
+      "degradationRate": "Annual Degradation Rate",
+      "availability": "Availability"
+    },
+    "financing": {
+      "title": "Financing Plan",
+      "hasLoan": "Has Loan",
+      "loanRatio": "Loan Ratio",
+      "loanTerm": "Loan Term",
+      "loanTermYears": "years",
+      "interestRate": "Annual Interest Rate"
+    }
+  },
+  "results": {
+    "title": "Investment Analysis Results",
+    "summary": "Investment Summary",
+    "financials": {
+      "irr": "Internal Rate of Return (IRR)",
+      "npv": "Net Present Value (NPV)",
+      "paybackPeriod": "Payback Period",
+      "lcoe": "Levelized Cost of Energy (LCOE)"
+    },
+    "revenue": {
+      "title": "Revenue Sources",
+      "arbitrage": "Peak-Valley Arbitrage",
+      "capacity": "Capacity Compensation",
+      "demandResponse": "Demand Response",
+      "auxiliary": "Auxiliary Services",
+      "totalRevenue": "Total Annual Revenue"
+    },
+    "cashFlow": {
+      "title": "Cash Flow Analysis",
+      "cumulative": "Cumulative Cash Flow",
+      "annual": "Annual Cash Flow",
+      "paybackMarker": "Payback Point"
+    },
+    "rating": {
+      "excellent": "Excellent",
+      "good": "Good",
+      "average": "Average",
+      "belowAverage": "Below Average",
+      "poor": "Poor"
+    },
+    "actions": {
+      "save": "Save Project",
+      "export": "Export Report",
+      "share": "Share Project",
+      "recalculate": "Recalculate"
+    }
+  },
+  "sensitivity": {
+    "title": "Sensitivity Analysis",
+    "description": "Analyze parameter impact on IRR",
+    "parameters": {
+      "batteryCost": "Battery Cost",
+      "systemSize": "System Size",
+      "systemEfficiency": "System Efficiency",
+      "cyclesPerDay": "Daily Cycles",
+      "depthOfDischarge": "Depth of Discharge",
+      "degradationRate": "Annual Degradation Rate",
+      "peakPrice": "Peak Price",
+      "valleyPrice": "Valley Price"
+    },
+    "variations": {
+      "pessimistic": "-30%",
+      "negative": "-15%",
+      "base": "Base",
+      "positive": "+15%",
+      "optimistic": "+30%"
+    },
+    "tornadoChart": "Tornado Chart",
+    "mostSensitive": "Most Sensitive Parameters",
+    "impact": "Impact Range"
+  },
+  "scenarios": {
+    "title": "Scenario Analysis",
+    "description": "Compare investment returns across different scenarios",
+    "presets": {
+      "optimistic": "Optimistic Case",
+      "base": "Base Case",
+      "pessimistic": "Pessimistic Case"
+    },
+    "custom": "Custom Scenario",
+    "createCustom": "Create New Scenario",
+    "compare": "Compare Scenarios",
+    "radarChart": "Radar Chart Comparison",
+    "addScenario": "Add Scenario",
+    "maxScenarios": "Maximum 5 custom scenarios"
+  },
+  "benchmark": {
+    "title": "Industry Benchmark Comparison",
+    "description": "Compare your investment returns with similar projects",
+    "comparison": {
+      "yourProject": "Your Project",
+      "comparable": "Comparable Projects",
+      "numberOfProjects": "{{count}} comparable projects",
+      "noComparable": "No comparable projects"
+    },
+    "percentiles": {
+      "title": "Percentile Ranking",
+      "top10": "Top 10%",
+      "top25": "Top 25%",
+      "aboveAverage": "Above Average",
+      "belowAverage": "Below Average",
+      "bottom25": "Bottom 25%"
+    },
+    "distribution": {
+      "title": "Distribution Statistics",
+      "mean": "Mean",
+      "median": "Median",
+      "stdDev": "Std Dev"
+    },
+    "rating": {
+      "title": "Overall Rating",
+      "excellent": "Excellent",
+      "good": "Good",
+      "average": "Average",
+      "belowAverage": "Below Average",
+      "poor": "Poor"
+    },
+    "drivers": {
+      "title": "Key Performance Drivers",
+      "impact": "Impact Level",
+      "high": "High",
+      "medium": "Medium",
+      "low": "Low"
+    }
+  },
+  "projects": {
+    "title": "Project Management",
+    "newProject": "New Project",
+    "search": "Search Projects",
+    "filter": "Filter",
+    "sort": "Sort",
+    "sortOptions": {
+      "updatedAt": "Last Updated",
+      "createdAt": "Created Date",
+      "name": "Project Name",
+      "irr": "IRR",
+      "systemSize": "Size",
+      "paybackPeriod": "Payback Period"
+    },
+    "list": {
+      "name": "Project Name",
+      "province": "Province",
+      "size": "Size",
+      "irr": "IRR",
+      "updatedAt": "Updated",
+      "actions": "Actions"
+    },
+    "actions": {
+      "open": "Open",
+      "duplicate": "Duplicate",
+      "delete": "Delete",
+      "export": "Export",
+      "share": "Share",
+      "favorite": "Favorite",
+      "unfavorite": "Unfavorite"
+    },
+    "deleteConfirm": {
+      "title": "Confirm Delete",
+      "message": "Are you sure you want to delete project \"{{name}}\"? This action cannot be undone.",
+      "cancel": "Cancel",
+      "confirm": "Delete"
+    }
+  },
+  "share": {
+    "title": "Share Project",
+    "generateLink": "Generate Share Link",
+    "linkExpiry": "Link Expiration",
+    "copyLink": "Copy Link",
+    "linkCopied": "Copied!",
+    "regenerate": "Regenerate Link",
+    "expires": "Expires",
+    "expiryOptions": {
+      "1d": "1 day",
+      "7d": "7 days",
+      "30d": "30 days",
+      "90d": "90 days"
+    },
+    "warning": "Warning: Anyone with this link can view the project (read-only mode)"
+  },
+  "language": {
+    "title": "Language",
+    "zh": "中文",
+    "en": "English"
+  },
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "delete": "Delete",
+    "edit": "Edit",
+    "duplicate": "Duplicate",
+    "export": "Export",
+    "import": "Import",
+    "close": "Close",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "submit": "Submit",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "year": "Year",
+    "month": "Month",
+    "day": "Day",
+    "currency": "¥",
+    "percent": "%",
+    "mw": "MW",
+    "mwh": "MWh",
+    "kw": "kW",
+    "kwh": "kWh",
+    "step": "Step",
+    "of": "/",
+    "times": "times",
+    "hour": "hours",
+    "range": "Range",
+    "summary": "Summary",
+    "loan": "Loan",
+    "equity": "Equity",
+    "annual": "Annual",
+    "payment": "Payment",
+    "total": "Total",
+    "interest": "Interest",
+    "no": "No",
+    "yes": "Yes",
+    "all": "All",
+    "rights": "Rights Reserved",
+    "data": "Data",
+    "source": "Source"
+  },
+  "errors": {
+    "required": "This field is required",
+    "invalidNumber": "Please enter a valid number",
+    "invalidRange": "Value is out of valid range",
+    "calculation": "Calculation error",
+    "loadFailed": "Failed to load",
+    "saveFailed": "Failed to save"
+  },
+  "charts": {
+    "cashFlow": "Cash Flow Chart",
+    "revenueBreakdown": "Revenue Breakdown",
+    "sensitivity": "Sensitivity Analysis",
+    "scenario": "Scenario Comparison",
+    "benchmark": "Benchmark Comparison"
+  }
+}
