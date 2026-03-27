@@ -1,0 +1,38 @@
+{
+  "code": "JX",
+  "name": "江西省",
+  "nameEn": "Jiangxi",
+  "pricing": {
+    "peakPrice": 1.07,
+    "valleyPrice": 0.38,
+    "flatPrice": 0.68,
+    "peakHours": ["09:00-12:00", "17:00-22:00"],
+    "valleyHours": ["23:00-07:00"],
+    "peakMonths": [1, 2, 7, 8, 12],
+    "spread": 0.69
+  },
+  "capacityCompensation": {
+    "available": true,
+    "type": "discharge-based",
+    "rate": 0.78,
+    "requirements": {
+      "minDischargeDuration": 2,
+      "availabilityThreshold": 85
+    },
+    "policyName": "江西省放电量补偿试点",
+    "effectiveDate": "2025-07-01"
+  },
+  "demandResponse": {
+    "available": true,
+    "peakCompensation": 3.2,
+    "valleyCompensation": 1.1,
+    "minResponseSize": 0.5,
+    "maxAnnualCalls": 48
+  },
+  "auxiliaryServices": {
+    "available": false
+  },
+  "lastUpdated": "2026-03-27",
+  "dataVersion": "2026-Q1",
+  "dataSource": "江西省发改委 2026年第一季度政策"
+}

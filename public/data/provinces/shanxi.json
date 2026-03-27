@@ -1,0 +1,38 @@
+{
+  "code": "SX",
+  "name": "山西省",
+  "nameEn": "Shanxi",
+  "pricing": {
+    "peakPrice": 1.02,
+    "valleyPrice": 0.38,
+    "flatPrice": 0.65,
+    "peakHours": ["08:00-11:00", "17:00-22:00"],
+    "valleyHours": ["23:00-07:00"],
+    "peakMonths": [1, 2, 6, 7, 12],
+    "spread": 0.64
+  },
+  "capacityCompensation": {
+    "available": true,
+    "type": "capacity-based",
+    "rate": 70,
+    "requirements": {
+      "minDischargeDuration": 2,
+      "availabilityThreshold": 85
+    },
+    "policyName": "山西省容量补偿政策",
+    "effectiveDate": "2025-03-01"
+  },
+  "demandResponse": {
+    "available": true,
+    "peakCompensation": 3.0,
+    "valleyCompensation": 1.0,
+    "minResponseSize": 0.5,
+    "maxAnnualCalls": 45
+  },
+  "auxiliaryServices": {
+    "available": false
+  },
+  "lastUpdated": "2026-03-27",
+  "dataVersion": "2026-Q1",
+  "dataSource": "山西省发改委 2026年第一季度政策"
+}

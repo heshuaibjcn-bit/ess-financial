@@ -1,0 +1,42 @@
+{
+  "code": "NM",
+  "name": "内蒙古自治区",
+  "nameEn": "Inner Mongolia",
+  "pricing": {
+    "peakPrice": 0.95,
+    "valleyPrice": 0.35,
+    "flatPrice": 0.62,
+    "peakHours": ["09:00-12:00", "16:00-21:00"],
+    "valleyHours": ["00:00-07:00", "12:00-16:00"],
+    "peakMonths": [1, 2, 6, 7, 11, 12],
+    "spread": 0.60
+  },
+  "capacityCompensation": {
+    "available": true,
+    "type": "capacity-based",
+    "rate": 65,
+    "requirements": {
+      "minDischargeDuration": 2,
+      "availabilityThreshold": 80
+    },
+    "policyName": "内蒙古自治区容量补偿政策",
+    "effectiveDate": "2025-04-01"
+  },
+  "demandResponse": {
+    "available": true,
+    "peakCompensation": 2.8,
+    "valleyCompensation": 0.9,
+    "minResponseSize": 1,
+    "maxAnnualCalls": 40
+  },
+  "auxiliaryServices": {
+    "available": true,
+    "peaking": {
+      "price": 0.5,
+      "availableHours": 1000
+    }
+  },
+  "lastUpdated": "2026-03-27",
+  "dataVersion": "2026-Q1",
+  "dataSource": "内蒙古自治区发改委 2026年第一季度政策"
+}

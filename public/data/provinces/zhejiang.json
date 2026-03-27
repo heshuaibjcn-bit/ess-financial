@@ -1,0 +1,38 @@
+{
+  "code": "ZJ",
+  "name": "浙江省",
+  "nameEn": "Zhejiang",
+  "pricing": {
+    "peakPrice": 1.2,
+    "valleyPrice": 0.35,
+    "flatPrice": 0.7,
+    "peakHours": ["08:00-11:00", "13:00-15:00", "18:00-21:00"],
+    "valleyHours": ["22:00-08:00"],
+    "peakMonths": [1, 2, 7, 8, 12],
+    "spread": 0.85
+  },
+  "capacityCompensation": {
+    "available": true,
+    "type": "discharge-based",
+    "rate": 0.8,
+    "requirements": {
+      "minDischargeDuration": 1.5,
+      "availabilityThreshold": 85
+    },
+    "policyName": "浙江省放电量补偿政策",
+    "effectiveDate": "2025-06-01"
+  },
+  "demandResponse": {
+    "available": true,
+    "peakCompensation": 3.5,
+    "valleyCompensation": 1.2,
+    "minResponseSize": 1,
+    "maxAnnualCalls": 60
+  },
+  "auxiliaryServices": {
+    "available": false
+  },
+  "lastUpdated": "2026-03-27",
+  "dataVersion": "2026-Q1",
+  "dataSource": "浙江省发改委 2026年第一季度政策"
+}

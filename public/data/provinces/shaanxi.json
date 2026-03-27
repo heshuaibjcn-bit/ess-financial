@@ -1,0 +1,38 @@
+{
+  "code": "SN",
+  "name": "陕西省",
+  "nameEn": "Shaanxi",
+  "pricing": {
+    "peakPrice": 1.06,
+    "valleyPrice": 0.38,
+    "flatPrice": 0.67,
+    "peakHours": ["08:00-11:00", "17:00-22:00"],
+    "valleyHours": ["23:00-07:00"],
+    "peakMonths": [1, 2, 7, 8, 12],
+    "spread": 0.68
+  },
+  "capacityCompensation": {
+    "available": true,
+    "type": "discharge-based",
+    "rate": 0.75,
+    "requirements": {
+      "minDischargeDuration": 2,
+      "availabilityThreshold": 85
+    },
+    "policyName": "陕西省放电量补偿试点",
+    "effectiveDate": "2025-07-01"
+  },
+  "demandResponse": {
+    "available": true,
+    "peakCompensation": 3.0,
+    "valleyCompensation": 1.0,
+    "minResponseSize": 0.5,
+    "maxAnnualCalls": 48
+  },
+  "auxiliaryServices": {
+    "available": false
+  },
+  "lastUpdated": "2026-03-27",
+  "dataVersion": "2026-Q1",
+  "dataSource": "陕西省发改委 2026年第一季度政策"
+}

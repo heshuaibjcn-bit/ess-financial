@@ -1,0 +1,37 @@
+{
+  "code": "BJ",
+  "name": "北京市",
+  "nameEn": "Beijing",
+  "pricing": {
+    "peakPrice": 1.20,
+    "valleyPrice": 0.35,
+    "flatPrice": 0.72,
+    "peakHours": ["08:00-11:00", "16:00-21:00"],
+    "valleyHours": ["23:00-07:00"],
+    "peakMonths": [1, 2, 6, 7, 8, 12],
+    "spread": 0.85
+  },
+  "capacityCompensation": {
+    "available": true,
+    "type": "none",
+    "policyName": "北京市暂无容量补偿政策",
+    "effectiveDate": "2026-01-01"
+  },
+  "demandResponse": {
+    "available": true,
+    "peakCompensation": 4.2,
+    "valleyCompensation": 1.5,
+    "minResponseSize": 1,
+    "maxAnnualCalls": 52
+  },
+  "auxiliaryServices": {
+    "available": true,
+    "frequencyRegulation": {
+      "price": 120,
+      "performanceScore": 0.9
+    }
+  },
+  "lastUpdated": "2026-03-27",
+  "dataVersion": "2026-Q1",
+  "dataSource": "北京市发改委 2026年第一季度政策"
+}

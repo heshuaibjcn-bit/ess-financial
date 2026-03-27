@@ -1,0 +1,38 @@
+{
+  "code": "TJ",
+  "name": "天津市",
+  "nameEn": "Tianjin",
+  "pricing": {
+    "peakPrice": 1.15,
+    "valleyPrice": 0.36,
+    "flatPrice": 0.70,
+    "peakHours": ["08:00-11:00", "17:00-22:00"],
+    "valleyHours": ["22:00-06:00"],
+    "peakMonths": [1, 2, 7, 8, 12],
+    "spread": 0.79
+  },
+  "capacityCompensation": {
+    "available": true,
+    "type": "discharge-based",
+    "rate": 0.85,
+    "requirements": {
+      "minDischargeDuration": 2,
+      "availabilityThreshold": 88
+    },
+    "policyName": "天津市放电量补偿试点",
+    "effectiveDate": "2025-04-01"
+  },
+  "demandResponse": {
+    "available": true,
+    "peakCompensation": 3.6,
+    "valleyCompensation": 1.3,
+    "minResponseSize": 0.5,
+    "maxAnnualCalls": 50
+  },
+  "auxiliaryServices": {
+    "available": false
+  },
+  "lastUpdated": "2026-03-27",
+  "dataVersion": "2026-Q1",
+  "dataSource": "天津市发改委 2026年第一季度政策"
+}

@@ -1,0 +1,38 @@
+{
+  "code": "JS",
+  "name": "江苏省",
+  "nameEn": "Jiangsu",
+  "pricing": {
+    "peakPrice": 1.18,
+    "valleyPrice": 0.32,
+    "flatPrice": 0.72,
+    "peakHours": ["08:00-11:00", "14:00-17:00", "19:00-21:00"],
+    "valleyHours": ["23:00-08:00"],
+    "peakMonths": [1, 2, 6, 7, 8, 12],
+    "spread": 0.86
+  },
+  "capacityCompensation": {
+    "available": true,
+    "type": "discharge-based",
+    "rate": 0.9,
+    "requirements": {
+      "minDischargeDuration": 1.5,
+      "availabilityThreshold": 90
+    },
+    "policyName": "江苏省放电量补偿政策",
+    "effectiveDate": "2025-03-01"
+  },
+  "demandResponse": {
+    "available": true,
+    "peakCompensation": 3.8,
+    "valleyCompensation": 1.2,
+    "minResponseSize": 1,
+    "maxAnnualCalls": 55
+  },
+  "auxiliaryServices": {
+    "available": false
+  },
+  "lastUpdated": "2026-03-27",
+  "dataVersion": "2026-Q1",
+  "dataSource": "江苏省发改委 2026年第一季度政策"
+}

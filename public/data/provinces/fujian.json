@@ -1,0 +1,38 @@
+{
+  "code": "FJ",
+  "name": "福建省",
+  "nameEn": "Fujian",
+  "pricing": {
+    "peakPrice": 1.11,
+    "valleyPrice": 0.37,
+    "flatPrice": 0.69,
+    "peakHours": ["08:00-11:00", "17:00-22:00"],
+    "valleyHours": ["23:00-07:00"],
+    "peakMonths": [1, 2, 7, 8, 12],
+    "spread": 0.74
+  },
+  "capacityCompensation": {
+    "available": true,
+    "type": "capacity-based",
+    "rate": 79,
+    "requirements": {
+      "minDischargeDuration": 2,
+      "availabilityThreshold": 85
+    },
+    "policyName": "福建省容量补偿试点",
+    "effectiveDate": "2025-05-01"
+  },
+  "demandResponse": {
+    "available": true,
+    "peakCompensation": 3.4,
+    "valleyCompensation": 1.2,
+    "minResponseSize": 0.5,
+    "maxAnnualCalls": 48
+  },
+  "auxiliaryServices": {
+    "available": false
+  },
+  "lastUpdated": "2026-03-27",
+  "dataVersion": "2026-Q1",
+  "dataSource": "福建省发改委 2026年第一季度政策"
+}

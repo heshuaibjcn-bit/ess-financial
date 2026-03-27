@@ -1,0 +1,38 @@
+{
+  "code": "HI",
+  "name": "海南省",
+  "nameEn": "Hainan",
+  "pricing": {
+    "peakPrice": 1.13,
+    "valleyPrice": 0.36,
+    "flatPrice": 0.71,
+    "peakHours": ["08:00-11:00", "17:00-22:00"],
+    "valleyHours": ["22:00-06:00"],
+    "peakMonths": [1, 2, 7, 8, 12],
+    "spread": 0.77
+  },
+  "capacityCompensation": {
+    "available": true,
+    "type": "discharge-based",
+    "rate": 0.82,
+    "requirements": {
+      "minDischargeDuration": 2,
+      "availabilityThreshold": 85
+    },
+    "policyName": "海南省放电量补偿试点",
+    "effectiveDate": "2025-04-01"
+  },
+  "demandResponse": {
+    "available": true,
+    "peakCompensation": 3.6,
+    "valleyCompensation": 1.3,
+    "minResponseSize": 0.5,
+    "maxAnnualCalls": 52
+  },
+  "auxiliaryServices": {
+    "available": false
+  },
+  "lastUpdated": "2026-03-27",
+  "dataVersion": "2026-Q1",
+  "dataSource": "海南省发改委 2026年第一季度政策"
+}

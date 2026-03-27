@@ -1,0 +1,42 @@
+{
+  "code": "SD",
+  "name": "山东省",
+  "nameEn": "Shandong",
+  "pricing": {
+    "peakPrice": 1.0,
+    "valleyPrice": 0.4,
+    "flatPrice": 0.65,
+    "peakHours": ["08:00-11:00", "16:00-21:00"],
+    "valleyHours": ["00:00-06:00", "11:00-14:00"],
+    "peakMonths": [1, 2, 7, 8, 12],
+    "spread": 0.6
+  },
+  "capacityCompensation": {
+    "available": true,
+    "type": "capacity-based",
+    "rate": 100,
+    "requirements": {
+      "minDischargeDuration": 2,
+      "availabilityThreshold": 90
+    },
+    "policyName": "山东省容量补偿试点政策",
+    "effectiveDate": "2025-01-01"
+  },
+  "demandResponse": {
+    "available": true,
+    "peakCompensation": 3.0,
+    "valleyCompensation": 1.0,
+    "minResponseSize": 0.5,
+    "maxAnnualCalls": 45
+  },
+  "auxiliaryServices": {
+    "available": true,
+    "peaking": {
+      "price": 0.6,
+      "availableHours": 800
+    }
+  },
+  "lastUpdated": "2026-03-27",
+  "dataVersion": "2026-Q1",
+  "dataSource": "山东省发改委 2026年1月政策"
+}

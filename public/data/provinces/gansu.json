@@ -1,0 +1,38 @@
+{
+  "code": "GS",
+  "name": "甘肃省",
+  "nameEn": "Gansu",
+  "pricing": {
+    "peakPrice": 1.04,
+    "valleyPrice": 0.38,
+    "flatPrice": 0.66,
+    "peakHours": ["08:00-11:00", "17:00-21:00"],
+    "valleyHours": ["23:00-07:00"],
+    "peakMonths": [1, 2, 6, 7, 8, 12],
+    "spread": 0.66
+  },
+  "capacityCompensation": {
+    "available": true,
+    "type": "capacity-based",
+    "rate": 70,
+    "requirements": {
+      "minDischargeDuration": 2,
+      "availabilityThreshold": 85
+    },
+    "policyName": "甘肃省容量补偿试点",
+    "effectiveDate": "2025-08-01"
+  },
+  "demandResponse": {
+    "available": true,
+    "peakCompensation": 2.8,
+    "valleyCompensation": 0.9,
+    "minResponseSize": 0.5,
+    "maxAnnualCalls": 48
+  },
+  "auxiliaryServices": {
+    "available": false
+  },
+  "lastUpdated": "2026-03-27",
+  "dataVersion": "2026-Q1",
+  "dataSource": "甘肃省发改委 2026年第一季度政策"
+}

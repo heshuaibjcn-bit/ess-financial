@@ -1,0 +1,71 @@
+{
+  "version": "1.0.0",
+  "lastUpdated": "2026-03-27",
+  "provinces": [
+    {
+      "code": "GD",
+      "name": "广东省",
+      "nameEn": "Guangdong",
+      "pricing": {
+        "peakPrice": 1.15,
+        "valleyPrice": 0.35,
+        "peakHours": ["10:00-12:00", "14:00-19:00"],
+        "valleyHours": ["00:00-08:00", "12:00-14:00"],
+        "spread": 0.8
+      },
+      "capacityCompensation": {
+        "available": true,
+        "type": "none",
+        "policyName": "No capacity compensation yet",
+        "effectiveDate": "2026-01-01"
+      },
+      "demandResponse": {
+        "available": true,
+        "peakCompensation": 4.0,
+        "valleyCompensation": 1.5,
+        "minResponseSize": 0.5,
+        "maxAnnualCalls": 50
+      },
+      "auxiliaryServices": {
+        "available": false
+      },
+      "dataSource": "国家发改委 2026年第一季度",
+      "dataVersion": "2026-Q1"
+    },
+    {
+      "code": "SD",
+      "name": "山东省",
+      "nameEn": "Shandong",
+      "pricing": {
+        "peakPrice": 1.0,
+        "valleyPrice": 0.4,
+        "peakHours": ["16:00-21:00"],
+        "valleyHours": ["00:00-06:00", "11:00-14:00"],
+        "spread": 0.6
+      },
+      "capacityCompensation": {
+        "available": true,
+        "type": "capacity-based",
+        "rate": 100,
+        "policyName": "山东容量补偿试点",
+        "effectiveDate": "2025-01-01"
+      },
+      "demandResponse": {
+        "available": true,
+        "peakCompensation": 3.0,
+        "valleyCompensation": 1.0,
+        "minResponseSize": 0.5,
+        "maxAnnualCalls": 45
+      },
+      "auxiliaryServices": {
+        "available": true,
+        "peaking": {
+          "price": 0.6,
+          "availableHours": 800
+        }
+      },
+      "dataSource": "山东省发改委 2026年1月",
+      "dataVersion": "2026-Q1"
+    }
+  ]
+}

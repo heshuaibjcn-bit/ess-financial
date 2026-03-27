@@ -1,0 +1,42 @@
+{
+  "code": "HL",
+  "name": "黑龙江省",
+  "nameEn": "Heilongjiang",
+  "pricing": {
+    "peakPrice": 1.08,
+    "valleyPrice": 0.37,
+    "flatPrice": 0.68,
+    "peakHours": ["08:00-11:00", "17:00-22:00"],
+    "valleyHours": ["22:00-06:00"],
+    "peakMonths": [1, 2, 7, 8, 12],
+    "spread": 0.71
+  },
+  "capacityCompensation": {
+    "available": true,
+    "type": "capacity-based",
+    "rate": 74,
+    "requirements": {
+      "minDischargeDuration": 2,
+      "availabilityThreshold": 85
+    },
+    "policyName": "黑龙江省容量补偿试点",
+    "effectiveDate": "2025-06-01"
+  },
+  "demandResponse": {
+    "available": true,
+    "peakCompensation": 3.2,
+    "valleyCompensation": 1.1,
+    "minResponseSize": 0.5,
+    "maxAnnualCalls": 48
+  },
+  "auxiliaryServices": {
+    "available": true,
+    "frequencyRegulation": {
+      "price": 108,
+      "performanceScore": 0.84
+    }
+  },
+  "lastUpdated": "2026-03-27",
+  "dataVersion": "2026-Q1",
+  "dataSource": "黑龙江省发改委 2026年第一季度政策"
+}

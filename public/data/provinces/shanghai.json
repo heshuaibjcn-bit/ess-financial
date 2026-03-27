@@ -1,0 +1,33 @@
+{
+  "code": "SH",
+  "name": "上海市",
+  "nameEn": "Shanghai",
+  "pricing": {
+    "peakPrice": 1.22,
+    "valleyPrice": 0.32,
+    "flatPrice": 0.75,
+    "peakHours": ["08:00-11:00", "13:00-15:00", "18:00-21:00"],
+    "valleyHours": ["22:00-06:00"],
+    "peakMonths": [1, 2, 7, 8, 9, 12],
+    "spread": 0.90
+  },
+  "capacityCompensation": {
+    "available": true,
+    "type": "none",
+    "policyName": "上海市暂无容量补偿政策",
+    "effectiveDate": "2026-01-01"
+  },
+  "demandResponse": {
+    "available": true,
+    "peakCompensation": 4.5,
+    "valleyCompensation": 1.8,
+    "minResponseSize": 0.5,
+    "maxAnnualCalls": 60
+  },
+  "auxiliaryServices": {
+    "available": false
+  },
+  "lastUpdated": "2026-03-27",
+  "dataVersion": "2026-Q1",
+  "dataSource": "上海市发改委 2026年第一季度政策"
+}

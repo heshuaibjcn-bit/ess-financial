@@ -1,0 +1,38 @@
+{
+  "code": "HA",
+  "name": "河南省",
+  "nameEn": "Henan",
+  "pricing": {
+    "peakPrice": 1.05,
+    "valleyPrice": 0.38,
+    "flatPrice": 0.67,
+    "peakHours": ["08:00-11:00", "16:00-21:00"],
+    "valleyHours": ["23:00-07:00"],
+    "peakMonths": [1, 2, 6, 7, 8, 12],
+    "spread": 0.67
+  },
+  "capacityCompensation": {
+    "available": true,
+    "type": "capacity-based",
+    "rate": 72,
+    "requirements": {
+      "minDischargeDuration": 2,
+      "availabilityThreshold": 85
+    },
+    "policyName": "河南省容量补偿试点",
+    "effectiveDate": "2025-06-01"
+  },
+  "demandResponse": {
+    "available": true,
+    "peakCompensation": 3.1,
+    "valleyCompensation": 1.0,
+    "minResponseSize": 0.5,
+    "maxAnnualCalls": 48
+  },
+  "auxiliaryServices": {
+    "available": false
+  },
+  "lastUpdated": "2026-03-27",
+  "dataVersion": "2026-Q1",
+  "dataSource": "河南省发改委 2026年第一季度政策"
+}

@@ -1,0 +1,33 @@
+{
+  "code": "XZ",
+  "name": "西藏自治区",
+  "nameEn": "Tibet",
+  "pricing": {
+    "peakPrice": 1.00,
+    "valleyPrice": 0.38,
+    "flatPrice": 0.64,
+    "peakHours": ["08:00-11:00", "17:00-21:00"],
+    "valleyHours": ["23:00-07:00"],
+    "peakMonths": [1, 2, 6, 7, 8, 12],
+    "spread": 0.62
+  },
+  "capacityCompensation": {
+    "available": false,
+    "type": "none",
+    "policyName": "西藏暂无容量补偿政策",
+    "effectiveDate": "2026-01-01"
+  },
+  "demandResponse": {
+    "available": true,
+    "peakCompensation": 2.5,
+    "valleyCompensation": 0.8,
+    "minResponseSize": 0.5,
+    "maxAnnualCalls": 48
+  },
+  "auxiliaryServices": {
+    "available": false
+  },
+  "lastUpdated": "2026-03-27",
+  "dataVersion": "2026-Q1",
+  "dataSource": "西藏发改委 2026年第一季度政策"
+}

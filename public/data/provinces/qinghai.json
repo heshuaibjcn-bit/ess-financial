@@ -1,0 +1,38 @@
+{
+  "code": "QH",
+  "name": "青海省",
+  "nameEn": "Qinghai",
+  "pricing": {
+    "peakPrice": 1.02,
+    "valleyPrice": 0.38,
+    "flatPrice": 0.65,
+    "peakHours": ["08:00-11:00", "17:00-21:00"],
+    "valleyHours": ["23:00-07:00"],
+    "peakMonths": [1, 2, 6, 7, 8, 12],
+    "spread": 0.64
+  },
+  "capacityCompensation": {
+    "available": true,
+    "type": "capacity-based",
+    "rate": 68,
+    "requirements": {
+      "minDischargeDuration": 2,
+      "availabilityThreshold": 85
+    },
+    "policyName": "青海省容量补偿试点",
+    "effectiveDate": "2025-09-01"
+  },
+  "demandResponse": {
+    "available": true,
+    "peakCompensation": 2.6,
+    "valleyCompensation": 0.8,
+    "minResponseSize": 0.5,
+    "maxAnnualCalls": 48
+  },
+  "auxiliaryServices": {
+    "available": false
+  },
+  "lastUpdated": "2026-03-27",
+  "dataVersion": "2026-Q1",
+  "dataSource": "青海省发改委 2026年第一季度政策"
+}

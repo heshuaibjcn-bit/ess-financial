@@ -1,0 +1,38 @@
+{
+  "code": "SC",
+  "name": "四川省",
+  "nameEn": "Sichuan",
+  "pricing": {
+    "peakPrice": 1.08,
+    "valleyPrice": 0.38,
+    "flatPrice": 0.68,
+    "peakHours": ["08:00-11:00", "15:00-17:00", "19:00-23:00"],
+    "valleyHours": ["00:00-07:00", "11:00-15:00"],
+    "peakMonths": [1, 2, 6, 7, 8, 9, 12],
+    "spread": 0.70
+  },
+  "capacityCompensation": {
+    "available": true,
+    "type": "discharge-based",
+    "rate": 0.75,
+    "requirements": {
+      "minDischargeDuration": 1.5,
+      "availabilityThreshold": 85
+    },
+    "policyName": "四川省放电量补偿政策",
+    "effectiveDate": "2025-07-01"
+  },
+  "demandResponse": {
+    "available": true,
+    "peakCompensation": 3.2,
+    "valleyCompensation": 1.0,
+    "minResponseSize": 1,
+    "maxAnnualCalls": 50
+  },
+  "auxiliaryServices": {
+    "available": false
+  },
+  "lastUpdated": "2026-03-27",
+  "dataVersion": "2026-Q1",
+  "dataSource": "四川省发改委 2026年第一季度政策"
+}

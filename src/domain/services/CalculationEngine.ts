@@ -12,6 +12,7 @@ import { provinceDataRepository } from '../repositories/ProvinceDataRepository';
 import { RevenueCalculator } from './RevenueCalculator';
 import { EnhancedCashFlowCalculator } from './EnhancedCashFlowCalculator';
 import { FinancialCalculator } from './FinancialCalculator';
+import { cacheService } from './CacheService';
 import type { ProvinceData } from '../schemas/ProvinceSchema';
 import type { ProjectInput } from '../schemas/ProjectSchema';
 import type { CalculationResult } from '../models/Project';
@@ -49,32 +50,24 @@ export class CalculationEngine {
   private revenueCalculator: RevenueCalculator;
   private cashFlowCalculator: EnhancedCashFlowCalculator;
   private financialCalculator: FinancialCalculator;
-  private cache: Map<string, EngineResult>;
+  private cache: typeof cacheService;
 
   constructor() {
     this.revenueCalculator = new RevenueCalculator();
     this.cashFlowCalculator = new EnhancedCashFlowCalculator();
     this.financialCalculator = new FinancialCalculator();
-    this.cache = new Map();
+    this.cache = cacheService;
   }
 
   /**
-   * Generate cache key from input parameters
+   * Generate cache key from input parameters (using CacheService)
    *
    * @param input - Project input
    * @param options - Calculation options
    * @returns Cache key
    */
   private generateCacheKey(input: ProjectInput, options: CalculationOptions): string {
-    // Simple JSON stringify for now (can be improved with SHA-256)
-    const key = JSON.stringify({
-      input,
-      options: {
-        discountRate: options.discountRate ?? 0.08,
-        projectLifetime: options.projectLifetime ?? 10,
-      },
-    });
-    return key;
+    return this.cache.generateKey(input, options);
   }
 
   /**
@@ -90,8 +83,9 @@ export class CalculationEngine {
   ): Promise<EngineResult> {
     // Check cache first
     const cacheKey = this.generateCacheKey(input, options);
-    if (this.cache.has(cacheKey)) {
-      return this.cache.get(cacheKey)!;
+    const cachedResult = await this.cache.get(cacheKey);
+    if (cachedResult) {
+      return cachedResult;
     }
 
     const discountRate = options.discountRate ?? 0.08;
@@ -174,8 +168,8 @@ export class CalculationEngine {
         },
       };
 
-      // Cache the result
-      this.cache.set(cacheKey, result);
+      // Cache the result with province for invalidation
+      await this.cache.set(cacheKey, result, input.province);
 
       return result;
     } catch (error) {
@@ -245,12 +239,31 @@ export class CalculationEngine {
   }
 
   /**
-   * Get cache size
+   * Get cache statistics
    *
-   * @returns Number of cached results
+   * @returns Cache statistics
    */
-  getCacheSize(): number {
-    return this.cache.size;
+  getCacheStats() {
+    return this.cache.getStats();
+  }
+
+  /**
+   * Get detailed cache debug information
+   */
+  getCacheDebugInfo() {
+    return this.cache.getDebugInfo();
+  }
+
+  /**
+   * Invalidate cache for a specific province
+   *
+   * Call this when province data is updated
+   *
+   * @param province - Province slug
+   * @returns Number of invalidated entries
+   */
+  invalidateProvinceCache(province: string): number {
+    return this.cache.invalidateProvince(province);
   }
 
   /**

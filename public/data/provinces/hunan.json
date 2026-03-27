@@ -1,0 +1,38 @@
+{
+  "code": "HN",
+  "name": "湖南省",
+  "nameEn": "Hunan",
+  "pricing": {
+    "peakPrice": 1.10,
+    "valleyPrice": 0.37,
+    "flatPrice": 0.69,
+    "peakHours": ["08:00-11:00", "17:00-22:00"],
+    "valleyHours": ["23:00-07:00"],
+    "peakMonths": [1, 2, 7, 8, 12],
+    "spread": 0.73
+  },
+  "capacityCompensation": {
+    "available": true,
+    "type": "discharge-based",
+    "rate": 0.80,
+    "requirements": {
+      "minDischargeDuration": 2,
+      "availabilityThreshold": 85
+    },
+    "policyName": "湖南省放电量补偿试点",
+    "effectiveDate": "2025-06-01"
+  },
+  "demandResponse": {
+    "available": true,
+    "peakCompensation": 3.4,
+    "valleyCompensation": 1.2,
+    "minResponseSize": 0.5,
+    "maxAnnualCalls": 48
+  },
+  "auxiliaryServices": {
+    "available": false
+  },
+  "lastUpdated": "2026-03-27",
+  "dataVersion": "2026-Q1",
+  "dataSource": "湖南省发改委 2026年第一季度政策"
+}

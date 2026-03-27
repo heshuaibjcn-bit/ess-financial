@@ -1,0 +1,33 @@
+{
+  "code": "GD",
+  "name": "广东省",
+  "nameEn": "Guangdong",
+  "pricing": {
+    "peakPrice": 1.15,
+    "valleyPrice": 0.35,
+    "flatPrice": 0.75,
+    "peakHours": ["10:00-12:00", "14:00-19:00"],
+    "valleyHours": ["00:00-08:00", "12:00-14:00"],
+    "peakMonths": [1, 2, 6, 7, 8, 9, 12],
+    "spread": 0.8
+  },
+  "capacityCompensation": {
+    "available": true,
+    "type": "none",
+    "policyName": "广东省暂无容量补偿政策",
+    "effectiveDate": "2026-01-01"
+  },
+  "demandResponse": {
+    "available": true,
+    "peakCompensation": 4.0,
+    "valleyCompensation": 1.5,
+    "minResponseSize": 0.5,
+    "maxAnnualCalls": 50
+  },
+  "auxiliaryServices": {
+    "available": false
+  },
+  "lastUpdated": "2026-03-27",
+  "dataVersion": "2026-Q1",
+  "dataSource": "广东省发改委 2026年第一季度政策"
+}

@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "composite": true,
     "lib": ["ES2020"],
     "target": "ES2020",
     "module": "ESNext",
@@ -9,10 +10,7 @@
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "noEmit": true,
-    "allowImportingTsExtensions": true,
-    "isolatedModules": true,
-    "jsx": "react-jsx"
+    "noEmit": true
   },
   "include": ["vite.config.ts"]
 }
