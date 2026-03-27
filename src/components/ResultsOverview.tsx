@@ -14,6 +14,7 @@ import { useUIStore } from '@/stores/uiStore';
 import { EngineResult } from '../domain/services/CalculationEngine';
 import { BenchmarkComparison } from '../domain/services/BenchmarkEngine';
 import { AIChatSidebar } from './AIChat';
+import { RevenueBarChart, RevenuePieChart, CashFlowLineChart } from './charts/SimpleCharts';
 
 interface ResultsOverviewProps {
   result: EngineResult;
@@ -280,6 +281,19 @@ export const ResultsOverview: React.FC<ResultsOverviewProps> = ({
                   result.revenueBreakdown?.auxiliaryServices || 0) / 10000).toFixed(1)}万
             </span>
           </div>
+        </div>
+      </div>
+
+      {/* Charts Section */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
+        {/* Revenue Pie Chart */}
+        <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
+          <RevenuePieChart result={result} />
+        </div>
+
+        {/* Cash Flow Line Chart */}
+        <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
+          <CashFlowLineChart result={result} />
         </div>
       </div>
 
