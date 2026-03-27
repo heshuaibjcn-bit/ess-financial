@@ -25,7 +25,6 @@ export {
   Disclaimer,
   InlineDisclaimer,
   RiskWarning,
-  RegulatoryNotice,
   TermsLink,
   type DisclaimerProps,
 } from './Disclaimer';
@@ -36,3 +35,12 @@ export {
   RegulatoryNotice as ReportRegulatoryNotice,
   CertificationNotice,
 } from './Export/ReportDisclaimer';
+
+// AI Chat Components
+export {
+  AIChatSidebar,
+  ChatMessageList,
+  ChatInput,
+  QuickPrompts,
+  ThinkingIndicator,
+} from './AIChat';

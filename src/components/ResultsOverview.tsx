@@ -10,8 +10,10 @@
 
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { useUIStore } from '@/stores/uiStore';
 import { EngineResult } from '../domain/services/CalculationEngine';
 import { BenchmarkComparison } from '../domain/services/BenchmarkEngine';
+import { AIChatSidebar } from './AIChat';
 
 interface ResultsOverviewProps {
   result: EngineResult;
@@ -27,6 +29,7 @@ export const ResultsOverview: React.FC<ResultsOverviewProps> = ({
   className = '',
 }) => {
   const { t } = useTranslation();
+  const setAIChatOpen = useUIStore((state) => state.setAIChatOpen);
 
   if (loading) {
     return (
@@ -41,6 +44,7 @@ export const ResultsOverview: React.FC<ResultsOverviewProps> = ({
 
   // Calculate rating
   const getRating = (irr: number) => {
+    if (irr <= 0) return { label: '严重亏损', color: 'text-red-700', bg: 'bg-red-100' };
     if (irr >= 12) return { label: t('results.rating.excellent'), color: 'text-green-600', bg: 'bg-green-50' };
     if (irr >= 10) return { label: t('results.rating.good'), color: 'text-blue-600', bg: 'bg-blue-50' };
     if (irr >= 8) return { label: t('results.rating.average'), color: 'text-yellow-600', bg: 'bg-yellow-50' };
@@ -48,7 +52,12 @@ export const ResultsOverview: React.FC<ResultsOverviewProps> = ({
     return { label: t('results.rating.poor'), color: 'text-red-600', bg: 'bg-red-50' };
   };
 
-  const rating = getRating((result.metrics?.irr ?? result.irr) || 0);
+  // Use direct property access from CalculationResult
+  const irrValue = result.irr ?? 0;
+  const npvValue = result.npv ?? 0;
+  const paybackValue = result.paybackPeriod ?? -1;
+  const lcoeValue = result.levelizedCost ?? 0;
+  const rating = getRating(irrValue);
 
   // Get percentile ranking for display
   const getPercentileLabel = (percentile: number) => {
@@ -67,9 +76,15 @@ export const ResultsOverview: React.FC<ResultsOverviewProps> = ({
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600">{t('results.financials.irr')}</p>
-              <p className="mt-2 text-3xl font-bold text-gray-900">
-                {((result.metrics?.irr ?? result.irr) || 0).toFixed(2)}%
+              <p className={`mt-2 text-3xl font-bold ${irrValue > 0 ? 'text-gray-900' : 'text-red-600'}`}>
+                {typeof irrValue === 'number' ? irrValue.toFixed(2) + '%' : '---'}
               </p>
+              {irrValue <= 0 && irrValue !== 0 && (
+                <p className="text-xs text-red-500 mt-1">项目无法盈利</p>
+              )}
+              {irrValue === 0 && (
+                <p className="text-xs text-red-500 mt-1">项目无法盈利</p>
+              )}
             </div>
             <div className={`w-12 h-12 rounded-full ${rating.bg} flex items-center justify-center`}>
               <svg className={`w-6 h-6 ${rating.color}`} fill="currentColor" viewBox="0 0 20 20">
@@ -77,9 +92,9 @@ export const ResultsOverview: React.FC<ResultsOverviewProps> = ({
               </svg>
             </div>
           </div>
-          {benchmarkComparison && (
+          {benchmarkComparison && benchmarkComparison.percentiles && (
             <p className="mt-2 text-xs text-gray-500">
-              {t('benchmark.comparison.comparable')}: {getPercentileLabel(benchmarkComparison.percentiles.irr)}
+              {t('benchmark.comparison.comparable')}: {getPercentileLabel(benchmarkComparison.percentiles.irr || benchmarkComparison.percentileIRR || 0)}
             </p>
           )}
         </div>
@@ -89,19 +104,22 @@ export const ResultsOverview: React.FC<ResultsOverviewProps> = ({
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600">{t('results.financials.npv')}</p>
-              <p className={`mt-2 text-3xl font-bold ${(result.npv || 0) >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-                ¥{((result.npv || 0) / 10000).toFixed(1)}万
+              <p className={`mt-2 text-3xl font-bold ${npvValue >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                {typeof npvValue === 'number' ? `¥${(npvValue / 10000).toFixed(1)}万` : '---'}
               </p>
+              {npvValue < 0 && (
+                <p className="text-xs text-red-500 mt-1">项目亏损</p>
+              )}
             </div>
-            <div className="w-12 h-12 rounded-full bg-green-50 flex items-center justify-center">
-              <svg className="w-6 h-6 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+            <div className={`w-12 h-12 rounded-full ${npvValue >= 0 ? 'bg-green-50' : 'bg-red-50'} flex items-center justify-center`}>
+              <svg className={`w-6 h-6 ${npvValue >= 0 ? 'text-green-600' : 'text-red-600'}`} fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 002-2h-4a2 2 0 00-2 2v4a2 2 0 002 2h4a2 2 0 002-2v-4z" clipRule="evenodd" />
               </svg>
             </div>
           </div>
-          {benchmarkComparison && (
+          {benchmarkComparison && benchmarkComparison.percentiles && (
             <p className="mt-2 text-xs text-gray-500">
-              {t('benchmark.comparison.comparable')}: {getPercentileLabel(benchmarkComparison.percentiles.npv)}
+              {t('benchmark.comparison.comparable')}: {getPercentileLabel(benchmarkComparison.percentiles.npv || 0)}
             </p>
           )}
         </div>
@@ -111,19 +129,24 @@ export const ResultsOverview: React.FC<ResultsOverviewProps> = ({
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600">{t('results.financials.paybackPeriod')}</p>
-              <p className="mt-2 text-3xl font-bold text-gray-900">
-                {result.paybackPeriod.toFixed(1)} {t('common.year')}
+              <p className={`mt-2 text-3xl font-bold ${paybackValue > 0 && paybackValue < 100 ? 'text-gray-900' : 'text-red-600'}`}>
+                {paybackValue < 0 || paybackValue >= 100
+                  ? '无法回收'
+                  : typeof paybackValue === 'number' ? `${paybackValue.toFixed(1)} ${t('common.year')}` : '---'}
               </p>
+              {paybackValue < 0 && (
+                <p className="text-xs text-red-500 mt-1">投资无法回收</p>
+              )}
             </div>
-            <div className="w-12 h-12 rounded-full bg-purple-50 flex items-center justify-center">
-              <svg className="w-6 h-6 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
+            <div className={`w-12 h-12 rounded-full ${paybackValue > 0 && paybackValue < 100 ? 'bg-purple-50' : 'bg-red-50'} flex items-center justify-center`}>
+              <svg className={`w-6 h-6 ${paybackValue > 0 && paybackValue < 100 ? 'text-purple-600' : 'text-red-600'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
           </div>
-          {benchmarkComparison && (
+          {benchmarkComparison && benchmarkComparison.percentiles && (
             <p className="mt-2 text-xs text-gray-500">
-              {t('benchmark.comparison.comparable')}: {getPercentileLabel(benchmarkComparison.percentiles.paybackPeriod)}
+              {t('benchmark.comparison.comparable')}: {getPercentileLabel(benchmarkComparison.percentiles.paybackPeriod || 0)}
             </p>
           )}
         </div>
@@ -134,40 +157,50 @@ export const ResultsOverview: React.FC<ResultsOverviewProps> = ({
             <div>
               <p className="text-sm font-medium text-gray-600">{t('results.financials.lcoe')}</p>
               <p className="mt-2 text-3xl font-bold text-gray-900">
-                ¥{result.levelizedCost.toFixed(2)}
+                {typeof lcoeValue === 'number' ? `¥${lcoeValue.toFixed(2)}` : '---'}
+              </p>
+              <p className="mt-2 text-xs text-gray-500">
+                / {t('common.kwh')}
               </p>
             </div>
             <div className="w-12 h-12 rounded-full bg-orange-50 flex items-center justify-center">
-              <svg className="w-6 h-6 text-orange-600" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 1.682-.948 2.286 1.56.38 1.56 2.6 0 2.98-.836A1.532 1.532 0 0115 5.627c1.372.836 2.942-.734 2.106-2.106-.54-.886.061-1.682.948-2.286zm-.672 4.672a3.001 3.001 0 00-2.636 0 3.001 3.001 0 000 5.292 3.001 3.001 0 002.636 0z" clipRule="evenodd" />
+              <svg className="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
           </div>
-          <p className="mt-2 text-xs text-gray-500">
-            / {t('common.kwh')}
-          </p>
         </div>
       </div>
 
       {/* Investment Rating */}
-      <div className={`${rating.bg} border border-gray-200 rounded-lg p-6 mb-6`}>
+      <div className={`${rating.bg} border ${irrValue < 0 ? 'border-red-300' : 'border-gray-200'} rounded-lg p-6 mb-6`}>
         <div className="flex items-center justify-between">
-          <div>
-            <h3 className="text-sm font-semibold text-gray-900 mb-1">
+          <div className="flex-1">
+            <h3 className="text-sm font-semibold text-gray-900 mb-2">
               {t('results.rating.title')}
             </h3>
-            <p className={`text-2xl font-bold ${rating.color}`}>
+            <p className={`text-2xl font-bold ${rating.color} mb-1`}>
               {rating.label}
             </p>
-          </div>
-          <div className="text-right">
-            <p className="text-sm text-gray-600">{t('benchmark.rating.title')}</p>
-            {benchmarkComparison && (
-              <p className={`text-lg font-bold ${rating.color}`}>
-                {benchmarkComparison.rating.overall}
+            {irrValue <= 0 && (
+              <p className="text-xs text-red-600 mt-2">
+                ⚠️ 当前参数下项目无法盈利，建议调整系统规模、成本结构或选择其他省份
+              </p>
+            )}
+            {irrValue > 0 && irrValue < 6 && (
+              <p className="text-xs text-orange-600 mt-2">
+                💡 投资回报较低，建议优化项目参数
               </p>
             )}
           </div>
+          {benchmarkComparison && (
+            <div className="text-right ml-4 pl-4 border-l border-gray-300">
+              <p className="text-sm text-gray-600">{t('benchmark.rating.title')}</p>
+              <p className={`text-lg font-bold ${rating.color}`}>
+                {benchmarkComparison.rating.overall}
+              </p>
+            </div>
+          )}
         </div>
       </div>
 
@@ -184,7 +217,7 @@ export const ResultsOverview: React.FC<ResultsOverviewProps> = ({
               <span className="text-sm text-gray-700">{t('results.revenue.arbitrage')}</span>
             </div>
             <span className="text-sm font-medium text-gray-900">
-              ¥{(result.revenueBreakdown?.peakValleyArbitrage || 0 / 10000).toFixed(1)}万
+              ¥{((result.revenueBreakdown?.peakValleyArbitrage || 0) / 10000).toFixed(1)}万
             </span>
           </div>
 
@@ -250,7 +283,19 @@ export const ResultsOverview: React.FC<ResultsOverviewProps> = ({
         <button className="px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors font-medium">
           {t('results.actions.recalculate')}
         </button>
+        <button
+          onClick={() => setAIChatOpen(true)}
+          className="px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-md hover:from-blue-700 hover:to-purple-700 transition-all font-medium flex items-center space-x-2"
+        >
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+          </svg>
+          <span>{t('aiChat.title', { defaultValue: 'AI分析' })}</span>
+        </button>
       </div>
+
+      {/* AI Chat Sidebar */}
+      <AIChatSidebar />
     </div>
   );
 };

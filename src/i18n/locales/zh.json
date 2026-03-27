@@ -300,5 +300,31 @@
     "sensitivity": "敏感性分析",
     "scenario": "情景对比",
     "benchmark": "基准对比"
+  },
+  "aiChat": {
+    "title": "AI投资顾问",
+    "subtitle": "基于当前项目分析",
+    "thinking": "AI正在思考...",
+    "clearChat": "清空对话",
+    "disclaimer": "AI建议仅供参考，投资决策请谨慎评估",
+    "quickPrompts": {
+      "title": "快速提问"
+    },
+    "input": {
+      "placeholder": "输入您的问题...",
+      "send": "发送",
+      "hint": "按 Enter 发送，Shift + Enter 换行"
+    },
+    "errors": {
+      "noProject": "请先完成项目计算",
+      "noApiKey": "未配置API密钥，请使用模拟模式",
+      "rateLimit": "请求过于频繁，请稍后再试",
+      "networkError": "网络连接失败，请检查网络设置",
+      "unknown": "发生未知错误，请重试"
+    },
+    "messages": {
+      "welcome": "您好！我是AI投资顾问助手，可以帮助您分析储能项目的投资价值。",
+      "noData": "暂无项目数据，请先完成项目计算。"
+    }
   }
 }

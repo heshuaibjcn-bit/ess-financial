@@ -11,6 +11,8 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 
+import type { ChatMessage, QuickPrompt, AIChatError } from '@/types/ai';
+
 /**
  * UI state structure
  */
@@ -35,6 +37,15 @@ interface UIState {
   showShareDialog: boolean;
   showDeleteConfirm: boolean;
 
+  // AI Chat
+  aiChatOpen: boolean;
+  chatMessages: ChatMessage[];
+  isAiThinking: boolean;
+  inputMessage: string;
+  chatError: string | null;
+  chatErrorType: AIChatError | null;
+  quickPrompts: QuickPrompt[];
+
   // Actions
   setCurrentStep: (step: number) => void;
   nextStep: () => void;
@@ -57,6 +68,17 @@ interface UIState {
   setShowSaveDialog: (show: boolean) => void;
   setShowShareDialog: (show: boolean) => void;
   setShowDeleteConfirm: (show: boolean) => void;
+
+  // AI Chat actions
+  setAIChatOpen: (open: boolean) => void;
+  addChatMessage: (message: ChatMessage) => void;
+  updateChatMessage: (id: string, content: string) => void;
+  clearChatMessages: () => void;
+  setIsAiThinking: (thinking: boolean) => void;
+  setInputMessage: (message: string) => void;
+  setChatError: (error: string | null) => void;
+  setChatErrorType: (errorType: AIChatError | null) => void;
+  clearChatError: () => void;
 }
 
 /**
@@ -79,6 +101,15 @@ export const useUIStore = create<UIState>()(
       showSaveDialog: false,
       showShareDialog: false,
       showDeleteConfirm: false,
+
+      // AI Chat initial state
+      aiChatOpen: false,
+      chatMessages: [],
+      isAiThinking: false,
+      inputMessage: '',
+      chatError: null,
+      chatErrorType: null,
+      quickPrompts: [],
 
       // Form wizard navigation
       setCurrentStep: (step) => {
@@ -168,6 +199,49 @@ export const useUIStore = create<UIState>()(
       setShowDeleteConfirm: (show) => {
         set({ showDeleteConfirm: show });
       },
+
+      // AI Chat actions
+      setAIChatOpen: (open) => {
+        set({ aiChatOpen: open });
+      },
+
+      addChatMessage: (message) => {
+        set((state) => ({
+          chatMessages: [...state.chatMessages, message],
+        }));
+      },
+
+      updateChatMessage: (id, content) => {
+        set((state) => ({
+          chatMessages: state.chatMessages.map((msg) =>
+            msg.id === id ? { ...msg, content } : msg
+          ),
+        }));
+      },
+
+      clearChatMessages: () => {
+        set({ chatMessages: [] });
+      },
+
+      setIsAiThinking: (thinking) => {
+        set({ isAiThinking: thinking });
+      },
+
+      setInputMessage: (message) => {
+        set({ inputMessage: message });
+      },
+
+      setChatError: (error) => {
+        set({ chatError: error });
+      },
+
+      setChatErrorType: (errorType) => {
+        set({ chatErrorType });
+      },
+
+      clearChatError: () => {
+        set({ chatError: null, chatErrorType: null });
+      },
     }),
     {
       name: 'ui-storage',
@@ -192,6 +266,17 @@ export const useTheme = () => useUIStore((state) => state.theme);
 export const useSidebarOpen = () => useUIStore((state) => state.sidebarOpen);
 export const useShowResults = () => useUIStore((state) => state.showResults);
 export const useShowAdvanced = () => useUIStore((state) => state.showAdvanced);
+
+/**
+ * AI Chat selector hooks
+ */
+export const useAIChatOpen = () => useUIStore((state) => state.aiChatOpen);
+export const useChatMessages = () => useUIStore((state) => state.chatMessages);
+export const useIsAiThinking = () => useUIStore((state) => state.isAiThinking);
+export const useInputMessage = () => useUIStore((state) => state.inputMessage);
+export const useChatError = () => useUIStore((state) => state.chatError);
+export const useChatErrorType = () => useUIStore((state) => state.chatErrorType);
+export const useQuickPrompts = () => useUIStore((state) => state.quickPrompts);
 
 /**
  * Computed helper hooks

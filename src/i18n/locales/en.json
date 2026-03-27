@@ -295,5 +295,31 @@
     "sensitivity": "Sensitivity Analysis",
     "scenario": "Scenario Comparison",
     "benchmark": "Benchmark Comparison"
+  },
+  "aiChat": {
+    "title": "AI Investment Advisor",
+    "subtitle": "Based on current project analysis",
+    "thinking": "AI is thinking...",
+    "clearChat": "Clear Chat",
+    "disclaimer": "AI suggestions are for reference only, please assess investment decisions carefully",
+    "quickPrompts": {
+      "title": "Quick Questions"
+    },
+    "input": {
+      "placeholder": "Enter your question...",
+      "send": "Send",
+      "hint": "Press Enter to send, Shift + Enter for new line"
+    },
+    "errors": {
+      "noProject": "Please complete the project calculation first",
+      "noApiKey": "API key not configured, using mock mode",
+      "rateLimit": "Too many requests, please try again later",
+      "networkError": "Network connection failed, please check your network settings",
+      "unknown": "An unknown error occurred, please try again"
+    },
+    "messages": {
+      "welcome": "Hello! I'm your AI investment advisor assistant, here to help you analyze the investment value of energy storage projects.",
+      "noData": "No project data available, please complete the project calculation first."
+    }
   }
 }
