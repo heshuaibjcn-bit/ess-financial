@@ -2,16 +2,34 @@
  * CacheService - Advanced caching for calculation results
  *
  * Features:
- * - SHA-256 cache keys from input parameters
+ * - SHA-256 cache keys from input parameters (browser-compatible)
  * - In-memory cache with optional Redis persistence
  * - Cache statistics (hit rate, size, memory usage)
  * - TTL (time-to-live) support
  * - Cache invalidation on province data updates
  */
 
-import { createHash } from 'crypto';
 import type { ProjectInput } from '../schemas/ProjectSchema';
 import type { EngineResult } from './CalculationEngine';
+
+/**
+ * Simple string hash function for browser compatibility
+ * Uses a combination of djb2 and sdbm algorithms
+ */
+function simpleHash(str: string): string {
+  let hash1 = 5381;
+  let hash2 = 0;
+
+  for (let i = 0; i < str.length; i++) {
+    const char = str.charCodeAt(i);
+    hash1 = ((hash1 << 5) + hash1) + char; /* hash1 * 33 + char */
+    hash2 = char + (hash2 << 6) + (hash2 << 16) - hash2; /* sdbm */
+  }
+
+  // Combine both hashes
+  const combinedHash = (hash1 >>> 0) + (hash2 >>> 0);
+  return combinedHash.toString(16) + Math.abs(hash1 * hash2).toString(16);
+}
 
 /**
  * Cache statistics
@@ -102,7 +120,7 @@ export class CacheService {
 
     // Sort keys for deterministic output
     const sortedKey = JSON.stringify(keyData, Object.keys(keyData).sort());
-    const hash = createHash('sha256').update(sortedKey).digest('hex');
+    const hash = simpleHash(sortedKey);
     return hash;
   }
 

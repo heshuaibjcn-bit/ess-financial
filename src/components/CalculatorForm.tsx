@@ -43,7 +43,7 @@ export const CalculatorForm: React.FC<CalculatorFormProps> = ({
 }) => {
   const { t } = useTranslation();
   const { currentStep, setCurrentStep, totalSteps } = useUIStore();
-  const { calculate, loading, error } = useCalculator({ debounce: 300 });
+  const { triggerCalculation, loading, error } = useCalculator({ debounce: 300 });
 
   // Initialize form with default values
   const methods = useForm<ProjectInput>({
@@ -118,8 +118,14 @@ export const CalculatorForm: React.FC<CalculatorFormProps> = ({
   useEffect(() => {
     const validateAndCalculate = async () => {
       const isValid = await trigger();
+      console.log('🔍 Form validation:', isValid, 'onCalculate exists:', !!onCalculate);
+      console.log('📋 formValues keys:', Object.keys(formValues));
+      console.log('📋 formValues:', JSON.stringify(formValues, null, 2));
       if (isValid && onCalculate) {
+        console.log('📤 Calling onCalculate with formValues');
         onCalculate(formValues);
+      } else {
+        console.log('⚠️ Validation failed or no onCalculate callback');
       }
     };
 

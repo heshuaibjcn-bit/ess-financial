@@ -26,7 +26,7 @@ import {
 
 function App() {
   const { t, i18n } = useTranslation();
-  const { result, loading, error, calculate } = useCalculator({ debounce: 300 });
+  const { result, loading, error, triggerCalculation } = useCalculator({ debounce: 300 });
   const { provinces, loading: loadingProvinces } = useAllProvinces();
   const [language, setLanguage] = useState<'zh' | 'en'>('zh');
 
@@ -37,21 +37,31 @@ function App() {
   // Handle calculation
   const handleCalculate = async (input: ProjectInput) => {
     try {
-      const calcResult = await calculate(input);
+      console.log('🔥 handleCalculate called with:', input);
+      await triggerCalculation(input);
+      console.log('✅ Calculation triggered');
 
       // Get benchmark comparison if available
-      if (calcResult && provinces.length > 0) {
-        try {
-          const comparison = await benchmarkEngine.compare(input, calcResult);
-          setBenchmarkComparison(comparison);
-        } catch (err) {
-          console.warn('Benchmark comparison failed:', err);
-        }
+      // Note: result will be available in the next render cycle
+      if (provinces.length > 0) {
+        // Benchmark comparison will be done when result is available
       }
     } catch (err) {
-      console.error('Calculation failed:', err);
+      console.error('❌ Calculation failed:', err);
     }
   };
+
+  // Watch for result changes to update benchmark
+  useEffect(() => {
+    if (result && provinces.length > 0 && !benchmarkComparison) {
+      const input = result.input;
+      if (input) {
+        benchmarkEngine.compare(input, result)
+          .then(setBenchmarkComparison)
+          .catch(err => console.warn('Benchmark comparison failed:', err));
+      }
+    }
+  }, [result, provinces, benchmarkComparison]);
 
   // Handle form submission
   const handleSubmit = async (input: ProjectInput) => {
@@ -155,12 +165,17 @@ function App() {
                       <svg className="w-16 h-16 text-gray-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M15 11h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
                       </svg>
-                      <p className="text-gray-500">
-                        {t('calculator.title')} - {t('calculator.steps.basic')}
+                      <p className="text-gray-500 font-medium">
+                        完善左侧表单信息
                       </p>
                       <p className="text-sm text-gray-400 mt-2">
-                        Fill in the form to see results
+                        填写项目参数后将自动计算投资收益
                       </p>
+                      <div className="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
+                        <p className="text-xs text-blue-800">
+                          💡 提示：填写完基本信息后，点击"下一步"继续填写成本构成、运营参数等信息
+                        </p>
+                      </div>
                     </div>
                   )}
                 </div>

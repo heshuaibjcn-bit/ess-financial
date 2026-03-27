@@ -236,6 +236,15 @@ export class RevenueCalculator {
 
     const total = peakValleyArbitrage + capacityCompensation + demandResponse + auxiliaryServices;
 
+    console.log('💰 Revenue breakdown:', {
+      effectiveCapacity,
+      peakValleyArbitrage,
+      capacityCompensation,
+      demandResponse,
+      auxiliaryServices,
+      total,
+    });
+
     return {
       peakValleyArbitrage,
       capacityCompensation,

@@ -210,5 +210,6 @@ class JobQueueService {
   }
 }
 
-// Singleton instance
+// Export class and singleton instance
+export { JobQueueService };
 export const jobQueue = new JobQueueService();

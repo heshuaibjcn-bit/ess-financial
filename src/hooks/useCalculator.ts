@@ -47,10 +47,14 @@ export function useCalculator(options?: {
     }
 
     try {
-      await storeCalculate(projectToCalculate);
+      console.log('🧮 Starting calculation with:', projectToCalculate);
+      const result = await storeCalculate(projectToCalculate);
+      console.log('✅ Calculation result:', result);
+      return result;
     } catch (err) {
       // Error is stored in the store
-      console.error('Calculation failed:', err);
+      console.error('❌ Calculation failed:', err);
+      throw err;
     }
   }, [currentProject, storeCalculate]);
 

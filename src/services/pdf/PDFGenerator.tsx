@@ -199,5 +199,6 @@ class PDFGeneratorService {
   }
 }
 
-// Singleton instance
+// Export class and singleton instance
+export { PDFGeneratorService };
 export const pdfGenerator = new PDFGeneratorService();
