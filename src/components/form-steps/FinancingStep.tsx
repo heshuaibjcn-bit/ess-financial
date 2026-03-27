@@ -62,6 +62,7 @@ export const FinancingStep: React.FC = () => {
 
       {/* Financing Parameters (shown only when hasLoan is true) */}
       {hasLoan && (
+        <>
         <div className="space-y-6 animate-fadeIn">
           {/* Equity Ratio */}
           <div className="bg-blue-50 border border-blue-200 rounded-md p-4">
@@ -200,8 +201,8 @@ export const FinancingStep: React.FC = () => {
           </div>
         </div>
 
-        {/* Financing Summary */}
         <FinancingSummary />
+        </>
       )}
 
       {/* No Financing Message */}
@@ -239,11 +240,39 @@ const FinancingSummary: React.FC = () => {
   const { t } = useTranslation();
   const { watch } = useFormContext();
 
+  // Watch all form fields needed for investment calculation
+  const systemSize = watch('systemSize');
+  const costs = watch('costs');
+
+  // Calculate actual investment from form values
   const totalInvestment = React.useMemo(() => {
-    // This would calculate the total investment from the form values
-    // For now, we'll use a placeholder
-    return 5000000; // ¥5M
-  }, []);
+    if (!systemSize || !costs) {
+      return 5000000; // Fallback placeholder
+    }
+
+    // Convert MW to kWh: capacity (MW) * 1000 = kWh
+    const capacityKwh = systemSize.capacity * 1000;
+    // Calculate power: capacity / duration
+    const powerKw = capacityKwh / systemSize.duration;
+
+    // Calculate base investment
+    const batteryCost = (costs.batteryCostPerKwh || 0) * capacityKwh;
+    const pcsCost = (costs.pcsCostPerKw || 0) * powerKw;
+    const emsCost = costs.emsCost || 0;
+    const installationCost = (costs.installationCostPerKw || 0) * powerKw;
+    const gridConnectionCost = costs.gridConnectionCost || 0;
+    const landCost = costs.landCost || 0;
+    const developmentCost = costs.developmentCost || 0;
+    const permittingCost = costs.permittingCost || 0;
+
+    const baseInvestment =
+      batteryCost + pcsCost + emsCost + installationCost +
+      gridConnectionCost + landCost + developmentCost + permittingCost;
+
+    // Apply contingency percentage
+    const contingency = costs.contingencyPercent || 0;
+    return baseInvestment * (1 + contingency);
+  }, [systemSize, costs]);
 
   const equityRatio = watch('financing.equityRatio') || 1.0;
   const loanRatio = watch('financing.loanRatio') || 0;
