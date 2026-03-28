@@ -11,7 +11,7 @@
 import { NanoAgent, AgentCapability } from './NanoAgent';
 import { calculationEngine } from '../../domain/services/CalculationEngine';
 
-export type FinancialAssessmentInput {
+export type FinancialAssessmentInput = {
   projectName: string;
   province: string;
   system: {
@@ -55,7 +55,7 @@ export type FinancialAssessmentInput {
   contractDuration?: number; // years
 }
 
-export type FinancialFeasibilityResult {
+export type FinancialFeasibilityResult = {
   overallFeasibility: 'excellent' | 'good' | 'fair' | 'poor' | 'not_feasible';
   score: number; // 0-100
   metrics: {
@@ -77,7 +77,7 @@ export type FinancialFeasibilityResult {
   reportGenerated: string;
 }
 
-export type FinancialRisk {
+export type FinancialRisk = {
   type: 'revenue' | 'cost' | 'policy' | 'technical' | 'market';
   level: 'low' | 'medium' | 'high';
   description: string;
@@ -86,14 +86,14 @@ export type FinancialRisk {
   mitigation: string;
 }
 
-export type FinancialOpportunity {
+export type FinancialOpportunity = {
   type: 'revenue_enhancement' | 'cost_reduction' | 'policy_optimization' | 'market_expansion';
   description: string;
   potential: string; // e.g., "Increase IRR by 2%"
   effort: 'low' | 'medium' | 'high';
 }
 
-export type ScenarioAnalysis {
+export type ScenarioAnalysis = {
   name: string;
   description: string;
   irr: number;

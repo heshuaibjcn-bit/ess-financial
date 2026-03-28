@@ -10,14 +10,14 @@
 
 import { NanoAgent, AgentCapability } from './NanoAgent';
 
-export type SentimentInput {
+export type SentimentInput = {
   companyName: string;
   timeRange?: '7d' | '30d' | '90d' | '1y';
   sources?: string[];
   keywords?: string[];
 }
 
-export type SentimentResult {
+export type SentimentResult = {
   overallScore: number; // -100 to +100
   trend: 'improving' | 'stable' | 'declining';
   sentiment: 'positive' | 'neutral' | 'negative';
@@ -28,7 +28,7 @@ export type SentimentResult {
   reportGenerated: string;
 }
 
-export type MentionsSummary {
+export type MentionsSummary = {
   total: number;
   news: number;
   socialMedia: number;
@@ -39,14 +39,14 @@ export type MentionsSummary {
   neutral: number;
 }
 
-export type Topic {
+export type Topic = {
   name: string;
   frequency: number;
   sentiment: number;
   keywords: string[];
 }
 
-export type SentimentRisk {
+export type SentimentRisk = {
   type: 'financial' | 'legal' | 'reputational' | 'operational';
   level: 'low' | 'medium' | 'high' | 'critical';
   description: string;
@@ -54,7 +54,7 @@ export type SentimentRisk {
   recommendation: string;
 }
 
-export type SentimentAlert {
+export type SentimentAlert = {
   severity: 'info' | 'warning' | 'urgent';
   title: string;
   description: string;
