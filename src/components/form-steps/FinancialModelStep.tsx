@@ -93,9 +93,11 @@ export const FinancialModelStep: React.FC = () => {
       investorShare = annualProfitAfterTax * ratio;
       ownerShare = annualProfitAfterTax * (1 - ratio);
     } else if (ownerInfo?.collaborationModel === 'emc') {
-      // EMC mode: investor gets 70-90% for first few years, then splits
-      investorShare = annualProfitAfterTax * 0.8;
-      ownerShare = annualProfitAfterTax * 0.2;
+      // EMC mode: use user-defined split ratios
+      const investorRatio = (ownerInfo?.revenueShareRatio || 50) / 100;
+      const ownerRatio = (ownerInfo?.ownerShareRatio || 50) / 100;
+      investorShare = annualProfitAfterTax * investorRatio;
+      ownerShare = annualProfitAfterTax * ownerRatio;
     }
 
     // Calculate investor IRR
@@ -123,8 +125,11 @@ export const FinancialModelStep: React.FC = () => {
         yearInvestor = yearNetProfit * ratio;
         yearOwner = yearNetProfit * (1 - ratio);
       } else {
-        yearInvestor = yearNetProfit * 0.8;
-        yearOwner = yearNetProfit * 0.2;
+        // EMC mode: use user-defined split ratios
+        const investorRatio = (ownerInfo?.revenueShareRatio || 50) / 100;
+        const ownerRatio = (ownerInfo?.ownerShareRatio || 50) / 100;
+        yearInvestor = yearNetProfit * investorRatio;
+        yearOwner = yearNetProfit * ownerRatio;
       }
 
       return {
@@ -179,11 +184,14 @@ export const FinancialModelStep: React.FC = () => {
               {t(`calculator.ownerInfo.collaboration_${ownerInfo?.collaborationModel}`)}
             </p>
           </div>
-          {ownerInfo?.collaborationModel === 'joint_venture' && (
+          {(ownerInfo?.collaborationModel === 'joint_venture' || ownerInfo?.collaborationModel === 'emc') && (
             <div className="text-right">
               <p className="text-sm text-purple-700">收益分成</p>
               <p className="text-lg font-semibold text-purple-900">
-                投资方 {ownerInfo?.revenueShareRatio || 50}% / 业主 {100 - (ownerInfo?.revenueShareRatio || 50)}%
+                {ownerInfo?.collaborationModel === 'joint_venture'
+                  ? `投资方 ${ownerInfo?.revenueShareRatio || 50}% / 业主 ${100 - (ownerInfo?.revenueShareRatio || 50)}%`
+                  : `投资方 ${ownerInfo?.revenueShareRatio || 50}% / 业主 ${ownerInfo?.ownerShareRatio || 50}%`
+                }
               </p>
             </div>
           )}

@@ -99,7 +99,11 @@ export const OwnerInfoSchema = z.object({
   revenueShareRatio: z.number()
     .min(0, '分成比例不能小于0')
     .max(100, '分成比例不能大于100')
-    .optional(), // 合资模式时的分成比例
+    .optional(), // 投资方分成比例（合资/EMC模式）
+  ownerShareRatio: z.number()
+    .min(0, '分成比例不能小于0')
+    .max(100, '分成比例不能大于100')
+    .optional(), // 业主分成比例（EMC模式）
   contractDuration: z.number()
     .int('合作年限必须是整数')
     .min(1, '合作年限至少1年')

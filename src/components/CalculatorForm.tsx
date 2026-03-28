@@ -119,9 +119,10 @@ export const CalculatorForm: React.FC<CalculatorFormProps> = ({
         companyScale: 'medium',
         creditRating: 'AA',
         paymentHistory: 'good',
-        collaborationModel: 'joint_venture',
+        collaborationModel: 'emc',
         contractDuration: 10,
-        revenueShareRatio: 50,
+        revenueShareRatio: 50, // 投资方分成比例
+        ownerShareRatio: 50,  // 业主分成比例
       },
       facilityInfo: {
         transformerCapacity: 1000,
