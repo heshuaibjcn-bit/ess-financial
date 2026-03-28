@@ -105,9 +105,9 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
   return (
     <div
       onClick={handleClick}
-      className="bg-white rounded-lg border border-gray-200 hover:border-blue-300 hover:shadow-md transition-all cursor-pointer group"
+      className="bg-white rounded-lg border border-gray-200 hover:border-blue-300 hover:shadow-md transition-all cursor-pointer group h-full flex flex-col"
     >
-      <div className="p-5">
+      <div className="p-5 flex-1 flex flex-col">
         {/* Header */}
         <div className="flex items-start justify-between mb-3">
           {/* Title */}
@@ -128,13 +128,13 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
 
         {/* Description */}
         {project.description && (
-          <p className="text-sm text-gray-600 line-clamp-2 mb-3">
+          <p className="text-sm text-gray-600 line-clamp-2 mb-3 flex-1">
             {project.description}
           </p>
         )}
 
         {/* Metadata */}
-        <div className="flex items-center justify-between text-xs text-gray-500">
+        <div className="flex items-center justify-between text-xs text-gray-500 mt-auto">
           <div className="flex items-center gap-4">
             {/* Collaboration Model */}
             {project.collaborationModel && (
