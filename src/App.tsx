@@ -23,6 +23,7 @@ import { AuthPage } from './components/AuthPage';
 import { ProjectListPage } from './components/ProjectListPage';
 import { ProjectDetailPage } from './components/ProjectDetailPage';
 import { SettingsPage } from './components/SettingsPage';
+import { AdminDashboard } from './components/admin';
 
 // Import calculator components (for unauthenticated/demo mode)
 import { CalculatorForm } from './components/CalculatorForm';
@@ -293,6 +294,14 @@ function App() {
           element={
             <ProtectedRoute>
               <SettingsPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute>
+              <AdminDashboard />
             </ProtectedRoute>
           }
         />
