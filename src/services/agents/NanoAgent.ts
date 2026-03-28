@@ -64,14 +64,14 @@ class GLMClient {
 }
 
 
-export interface AgentMessage {
+export type AgentMessage = {
   role: 'user' | 'assistant' | 'system';
   content: string;
   timestamp: string;
   reasoning?: string; // Show agent's thought process
 }
 
-export interface AgentTask {
+export type AgentTask = {
   id: string;
   type: string;
   input: any;
@@ -83,7 +83,7 @@ export interface AgentTask {
   messages: AgentMessage[];
 }
 
-export interface AgentConfig {
+export type AgentConfig = {
   name: string;
   description: string;
   version: string;
@@ -93,7 +93,7 @@ export interface AgentConfig {
   systemPrompt: string;
 }
 
-export interface AgentCapability {
+export type AgentCapability = {
   name: string;
   description: string;
   inputFormat: string;

@@ -11,7 +11,7 @@
 
 import { NanoAgent, AgentCapability } from './NanoAgent';
 
-export interface CompanyInfo {
+export type CompanyInfo {
   name: string;
   registrationNumber?: string;
   legalRepresentative?: string;
@@ -23,14 +23,14 @@ export interface CompanyInfo {
   scale?: 'large' | 'medium' | 'small' | 'micro';
 }
 
-export interface DueDiligenceInput {
+export type DueDiligenceInput {
   companyName: string;
   taxNumber?: string;
   unifiedSocialCreditCode?: string;
   searchDepth?: 'basic' | 'standard' | 'comprehensive';
 }
 
-export interface DueDiligenceResult {
+export type DueDiligenceResult {
   companyInfo: CompanyInfo;
   creditRating: {
     level: string;
@@ -58,7 +58,7 @@ export interface DueDiligenceResult {
   reportGenerated: string;
 }
 
-export interface RiskFactor {
+export type RiskFactor {
   category: 'legal' | 'financial' | 'operational' | 'reputational';
   level: 'low' | 'medium' | 'high' | 'critical';
   description: string;

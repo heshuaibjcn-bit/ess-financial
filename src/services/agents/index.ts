@@ -11,8 +11,8 @@
  * - Integrated report generation
  */
 
-export { NanoAgent, AgentManager, AgentConfig, AgentCapability, getAgentManager } from './NanoAgent';
-export type { AgentTask, AgentMessage } from './NanoAgent';
+export { NanoAgent, AgentManager, getAgentManager } from './NanoAgent';
+export type { AgentConfig, AgentCapability, AgentTask, AgentMessage } from './NanoAgent';
 
 export { PolicyUpdateAgent } from './PolicyUpdateAgent';
 export type {
@@ -78,6 +78,3 @@ export type {
   Table,
   Chart,
 } from './ReportGenerationAgent';
-
-// GLM Client is now used instead of Anthropic
-// The GLMClient class is defined within NanoAgent.ts and not separately exported

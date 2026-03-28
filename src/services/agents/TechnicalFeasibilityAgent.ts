@@ -11,7 +11,7 @@
 import { NanoAgent, AgentCapability } from './NanoAgent';
 import type { ProvinceData } from '../../domain/schemas/ProvinceSchema';
 
-export interface TechnicalAssessmentInput {
+export type TechnicalAssessmentInput {
   projectName: string;
   province: string;
   location?: {
@@ -31,7 +31,7 @@ export interface TechnicalAssessmentInput {
   };
 }
 
-export interface TechnicalFeasibilityResult {
+export type TechnicalFeasibilityResult {
   overallFeasibility: 'feasible' | 'feasible_with_conditions' | 'challenging' | 'not_feasible';
   score: number; // 0-100
   categories: CategoryAssessment[];
@@ -40,7 +40,7 @@ export interface TechnicalFeasibilityResult {
   reportGenerated: string;
 }
 
-export interface CategoryAssessment {
+export type CategoryAssessment {
   category: 'site' | 'grid' | 'environmental' | 'regulatory';
   score: number; // 0-100
   status: 'pass' | 'condition' | 'fail';
@@ -48,7 +48,7 @@ export interface CategoryAssessment {
   requirements: string[];
 }
 
-export interface TechnicalConstraint {
+export type TechnicalConstraint {
   type: 'site_limitation' | 'grid_capacity' | 'environmental' | 'safety' | 'regulatory';
   severity: 'low' | 'medium' | 'high';
   description: string;

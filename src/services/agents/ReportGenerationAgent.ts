@@ -19,7 +19,7 @@ import type {
   FinancialFeasibilityResult,
 } from './';
 
-export interface ReportInput {
+export type ReportInput {
   projectName: string;
   companyName: string;
   province: string;
@@ -41,7 +41,7 @@ export type ReportSection =
   | 'recommendations'
   | 'appendices';
 
-export interface ReportResult {
+export type ReportResult {
   reportId: string;
   generatedAt: string;
   format: string;
@@ -54,7 +54,7 @@ export interface ReportResult {
   pageCount: number;
 }
 
-export interface GeneratedSection {
+export type GeneratedSection {
   name: ReportSection;
   title: string;
   content: string;
@@ -64,7 +64,7 @@ export interface GeneratedSection {
   pageEnd: number;
 }
 
-export interface ExecutiveSummary {
+export type ExecutiveSummary {
   projectOverview: string;
   overallFeasibility: string;
   keyMetrics: {
@@ -79,28 +79,28 @@ export interface ExecutiveSummary {
   confidence: number; // 0-1
 }
 
-export interface KeyFinding {
+export type KeyFinding {
   category: 'policy' | 'tariff' | 'company' | 'technical' | 'financial';
   finding: string;
   impact: 'positive' | 'neutral' | 'negative';
   significance: 'high' | 'medium' | 'low';
 }
 
-export interface RiskSummary {
+export type RiskSummary {
   category: string;
   level: 'low' | 'medium' | 'high' | 'critical';
   description: string;
   mitigation: string;
 }
 
-export interface Recommendation {
+export type Recommendation {
   priority: 'high' | 'medium' | 'low';
   action: string;
   rationale: string;
   timeline?: string;
 }
 
-export interface Table {
+export type Table {
   id: string;
   title: string;
   headers: string[];
@@ -108,7 +108,7 @@ export interface Table {
   caption?: string;
 }
 
-export interface Chart {
+export type Chart {
   id: string;
   type: 'bar' | 'line' | 'pie' | 'tornado' | 'waterfall';
   title: string;
