@@ -93,66 +93,6 @@ export const OwnerInfoStep: React.FC = () => {
         </div>
       </div>
 
-      {/* Background Check */}
-      <div className="border border-gray-200 rounded-lg p-4">
-        <h4 className="text-md font-medium text-gray-800 mb-4 flex items-center">
-          <svg className="w-5 h-5 mr-2 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
-          {t('calculator.ownerInfo.backgroundCheck')}
-        </h4>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {/* Company Scale */}
-          <div>
-            <label htmlFor="companyScale" className="block text-sm font-medium text-gray-700 mb-1">
-              {t('calculator.ownerInfo.companyScale')}
-            </label>
-            <select
-              id="companyScale"
-              {...register('ownerInfo.companyScale')}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            >
-              <option value="small">{t('calculator.ownerInfo.companyScale_small')}</option>
-              <option value="medium">{t('calculator.ownerInfo.companyScale_medium')}</option>
-              <option value="large">{t('calculator.ownerInfo.companyScale_large')}</option>
-            </select>
-          </div>
-
-          {/* Credit Rating */}
-          <div>
-            <label htmlFor="creditRating" className="block text-sm font-medium text-gray-700 mb-1">
-              {t('calculator.ownerInfo.creditRating')}
-            </label>
-            <select
-              id="creditRating"
-              {...register('ownerInfo.creditRating')}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            >
-              {CREDIT_RATINGS.map((rating) => (
-                <option key={rating} value={rating}>{rating}</option>
-              ))}
-            </select>
-          </div>
-
-          {/* Payment History */}
-          <div>
-            <label htmlFor="paymentHistory" className="block text-sm font-medium text-gray-700 mb-1">
-              {t('calculator.ownerInfo.paymentHistory')}
-            </label>
-            <select
-              id="paymentHistory"
-              {...register('ownerInfo.paymentHistory')}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            >
-              <option value="excellent">{t('calculator.ownerInfo.paymentHistory_excellent')}</option>
-              <option value="good">{t('calculator.ownerInfo.paymentHistory_good')}</option>
-              <option value="fair">{t('calculator.ownerInfo.paymentHistory_fair')}</option>
-              <option value="poor">{t('calculator.ownerInfo.paymentHistory_poor')}</option>
-            </select>
-          </div>
-        </div>
-      </div>
 
       {/* Collaboration Model */}
       <div className="border border-gray-200 rounded-lg p-4 bg-blue-50">
