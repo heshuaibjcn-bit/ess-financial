@@ -9,7 +9,7 @@
  */
 
 import { NanoAgent, AgentCapability } from './NanoAgent';
-import { calculationEngine } from '../CalculationEngine';
+import { calculationEngine } from '../../domain/services/CalculationEngine';
 
 export interface FinancialAssessmentInput {
   projectName: string;

@@ -22,12 +22,12 @@ import {
   Tag,
   TrendingUp,
 } from 'lucide-react';
-import { getPolicyPool } from '../../services/policy/PolicyPoolService';
+import { getPolicyPool } from '../services/policy/PolicyPoolService';
 import type {
   PolicyDocument,
   PolicyCategory,
   PolicyPoolStats,
-} from '../../domain/schemas/PolicySchema';
+} from '../domain/schemas/PolicySchema';
 
 interface PolicyPoolWidgetProps {
   className?: string;

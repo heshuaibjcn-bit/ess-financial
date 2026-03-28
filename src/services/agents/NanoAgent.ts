@@ -320,5 +320,3 @@ export function getAgentManager(): AgentManager {
   }
   return managerInstance;
 }
-
-export { NanoAgent, AgentManager };

@@ -602,5 +602,3 @@ export function getPolicyPool(): PolicyPoolService {
   }
   return policyPoolService;
 }
-
-export { PolicyPoolService };
