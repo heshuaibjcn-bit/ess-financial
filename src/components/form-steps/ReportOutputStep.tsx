@@ -191,7 +191,6 @@ export const ReportOutputStep: React.FC = () => {
                 <p><strong>企业规模:</strong> {t(`calculator.ownerInfo.companyScale_${ownerInfo?.companyScale}`)}</p>
                 <p><strong>信用评级:</strong> {ownerInfo?.creditRating}</p>
                 <p><strong>用电历史:</strong> {t(`calculator.ownerInfo.paymentHistory_${ownerInfo?.paymentHistory}`)}</p>
-                <p><strong>联系人:</strong> {ownerInfo?.contactPerson} ({ownerInfo?.contactPhone})</p>
               </div>
             </section>
 

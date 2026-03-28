@@ -88,11 +88,6 @@ export const OwnerInfoSchema = z.object({
   industry: z.string()
     .min(1, '请输入所属行业')
     .max(100, '行业描述过长'),
-  contactPerson: z.string()
-    .min(1, '请输入联系人姓名')
-    .max(50, '联系人姓名过长'),
-  contactPhone: z.string()
-    .regex(/^1[3-9]\d{9}$/, '请输入有效的手机号码'),
 
   // 背调信息
   companyScale: z.enum(COMPANY_SCALES),

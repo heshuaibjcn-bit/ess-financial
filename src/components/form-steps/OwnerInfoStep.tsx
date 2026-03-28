@@ -88,44 +88,6 @@ export const OwnerInfoStep: React.FC = () => {
               <p className="mt-1 text-sm text-red-600">{errors.ownerInfo.industry.message}</p>
             )}
           </div>
-
-          {/* Contact Person */}
-          <div>
-            <label htmlFor="contactPerson" className="block text-sm font-medium text-gray-700 mb-1">
-              {t('calculator.ownerInfo.contactPerson')} <span className="text-red-500">*</span>
-            </label>
-            <input
-              id="contactPerson"
-              type="text"
-              {...register('ownerInfo.contactPerson')}
-              className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                errors.ownerInfo?.contactPerson ? 'border-red-500' : 'border-gray-300'
-              }`}
-              placeholder={t('calculator.ownerInfo.contactPerson')}
-            />
-            {errors.ownerInfo?.contactPerson && (
-              <p className="mt-1 text-sm text-red-600">{errors.ownerInfo.contactPerson.message}</p>
-            )}
-          </div>
-
-          {/* Contact Phone */}
-          <div>
-            <label htmlFor="contactPhone" className="block text-sm font-medium text-gray-700 mb-1">
-              {t('calculator.ownerInfo.contactPhone')} <span className="text-red-500">*</span>
-            </label>
-            <input
-              id="contactPhone"
-              type="tel"
-              {...register('ownerInfo.contactPhone')}
-              className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                errors.ownerInfo?.contactPhone ? 'border-red-500' : 'border-gray-300'
-              }`}
-              placeholder="13800000000"
-            />
-            {errors.ownerInfo?.contactPhone && (
-              <p className="mt-1 text-sm text-red-600">{errors.ownerInfo.contactPhone.message}</p>
-            )}
-          </div>
         </div>
       </div>
 

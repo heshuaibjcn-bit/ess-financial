@@ -116,8 +116,6 @@ export const CalculatorForm: React.FC<CalculatorFormProps> = ({
       ownerInfo: {
         companyName: '',
         industry: '',
-        contactPerson: '',
-        contactPhone: '',
         companyScale: 'medium',
         creditRating: 'AA',
         paymentHistory: 'good',
@@ -187,7 +185,7 @@ export const CalculatorForm: React.FC<CalculatorFormProps> = ({
   const goToNextStep = useCallback(async () => {
     // Define required fields for each step
     const stepRequiredFields = {
-      0: ['ownerInfo.companyName', 'ownerInfo.industry', 'ownerInfo.contactPerson', 'ownerInfo.contactPhone', 'ownerInfo.collaborationModel', 'ownerInfo.contractDuration', 'facilityInfo.transformerCapacity', 'facilityInfo.voltageLevel', 'facilityInfo.availableArea', 'facilityInfo.roofType', 'facilityInfo.commissionDate'],
+      0: ['ownerInfo.companyName', 'ownerInfo.industry', 'ownerInfo.collaborationModel', 'ownerInfo.contractDuration', 'facilityInfo.transformerCapacity', 'facilityInfo.voltageLevel', 'facilityInfo.availableArea', 'facilityInfo.roofType', 'facilityInfo.commissionDate'],
       1: ['tariffDetail.tariffType', 'tariffDetail.peakPrice', 'tariffDetail.valleyPrice', 'tariffDetail.flatPrice', 'tariffDetail.hourlyPrices'],
       2: [], // Technical assessment - auto-generated, no required input
       3: [], // Financial model - auto-calculated, no required input
