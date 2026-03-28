@@ -598,7 +598,7 @@ let policyPoolInstance: PolicyPoolService | null = null;
 
 export function getPolicyPool(): PolicyPoolService {
   if (!policyPoolInstance) {
-    policyPoolService = new PolicyPoolService();
+    policyPoolInstance = new PolicyPoolService();
   }
-  return policyPoolService;
+  return policyPoolInstance;
 }
