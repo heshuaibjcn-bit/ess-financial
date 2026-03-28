@@ -220,7 +220,7 @@ export const TariffDetailsStep: React.FC = () => {
           <h4 className="text-sm font-semibold text-gray-900 mb-4">
             24小时电价分布
           </h4>
-          <HourlyTariffChart data={hourlyPrices} />
+          <HourlyTariffChart hourlyPrices={hourlyPrices} />
         </div>
       )}
 

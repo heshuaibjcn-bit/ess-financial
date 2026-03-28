@@ -100,7 +100,7 @@ export const HourlyTariffChart: React.FC<HourlyTariffChartProps> = ({
             <defs>
               <linearGradient id="colorPeak" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="5%" stopColor="#ef4444" stopOpacity={0.8} />
-                <stop offset="95%" stopColor="#ef4444 stopOpacity={0} />
+                <stop offset="95%" stopColor="#ef4444" stopOpacity={0} />
               </linearGradient>
               <linearGradient id="colorValley" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="5%" stopColor="#22c55e" stopOpacity={0.8} />
