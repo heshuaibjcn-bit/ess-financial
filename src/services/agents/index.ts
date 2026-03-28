@@ -79,5 +79,5 @@ export type {
   Chart,
 } from './ReportGenerationAgent';
 
-// Re-export Anthropic for convenience
-export { Anthropic } from '@anthropic-ai/sdk';
+// GLM Client is now used instead of Anthropic
+// The GLMClient class is defined within NanoAgent.ts and not separately exported

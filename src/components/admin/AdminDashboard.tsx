@@ -12,7 +12,7 @@ import React, { useState, useEffect } from 'react';
 import {
   getAgentManager,
 } from '../../services/agents';
-import type { AgentTask } from '../../services/agents/NanoAgent';
+import type { AgentTask } from '../../services/agents';
 
 type AgentType =
   | 'policy'
