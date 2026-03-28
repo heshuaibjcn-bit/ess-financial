@@ -12,7 +12,7 @@
 import React, { useState, useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
 import HourlyTariffChart from '../charts/HourlyTariffChart';
-import { type HourlyPrice } from '../../domain/schemas/ProjectSchema';
+import { type HourlyPrice, PROVINCE_NAMES } from '../../domain/schemas/ProjectSchema';
 import { getTariffService } from '../../services/tariffDataService';
 import TariffUpdateButton from '../TariffUpdateButton';
 import { type TariffType } from '../../domain/schemas/ProjectSchema';
@@ -146,9 +146,9 @@ export const TariffDetailsStep: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      {/* Header with update button */}
+      {/* Header with parameters and update button */}
       <div className="flex items-center justify-between">
-        <div>
+        <div className="flex-1">
           <h3 className="text-lg font-semibold text-gray-900">
             电价信息
           </h3>
@@ -166,16 +166,47 @@ export const TariffDetailsStep: React.FC = () => {
         </div>
 
         <div className="flex items-center gap-2">
-          {/* Voltage level indicator */}
+          {/* Location and voltage indicators */}
+          {province && (
+            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
+              <svg className="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
+              </svg>
+              项目所在地：{PROVINCE_NAMES[province] || province}
+            </span>
+          )}
+
           {voltageLevel && (
-            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
-              {getVoltageDescription(voltageLevel)}
+            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-orange-100 text-orange-800">
+              <svg className="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-2.297 2.897a1 1 0 01-.707.293l-2.121-2.121A1 1 0 009.616 9.21l-2.121 2.121a1 1 0 01-.707.293l-2.297-2.897A1 1 0 017 7V2a1 1 0 011-1V1a1 1 0 001.3.046zM9 7V2a1 1 0 00-1 1v4a1 1 0 001.618.78l2.122-2.121a1 1 0 01.707-.293l2.12 2.122a1 1 0 00.708.293l2.297-2.897A1 1 0 019 7V2a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 001.618.78l2.122 2.121a1 1 0 00.707.293l2.12-2.122a1 1 0 00.708-.293l2.297 2.897A1 1 0 0115 7V2a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 001.618.78l2.122 2.121a1 1 0 00.707.293l2.12-2.122a1 1 0 00.708-.293l2.297-2.897A1 1 0 0119 7V2a1 1 0 011-1z" clipRule="evenodd" />
+              </svg>
+              电压等级：{voltageLevel}
             </span>
           )}
 
           <TariffUpdateButton onUpdated={handleTariffUpdated} />
         </div>
       </div>
+
+      {/* Auto-update notice */}
+      {currentTariff && (
+        <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
+          <div className="flex items-start">
+            <svg className="w-5 h-5 text-blue-400 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+            </svg>
+            <div className="flex-1">
+              <p className="text-sm font-medium text-blue-900">
+                电价自动联动
+              </p>
+              <p className="text-xs text-blue-700 mt-1">
+                电价信息根据项目所在地和电压等级自动加载。如需更改，请返回"业主信息"步骤修改。
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Tariff Type Selection */}
       <div className="bg-white border border-gray-200 rounded-lg p-5">
