@@ -114,8 +114,8 @@ export const CalculatorForm: React.FC<CalculatorFormProps> = ({
       },
       // NEW: Default values for business-driven fields
       ownerInfo: {
-        companyName: '',
-        industry: '',
+        companyName: '示例制造有限公司',
+        industry: '制造业',
         companyScale: 'medium',
         creditRating: 'AA',
         paymentHistory: 'good',
