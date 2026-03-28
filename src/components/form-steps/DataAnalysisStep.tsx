@@ -13,12 +13,13 @@ import { useFormContext } from 'react-hook-form';
 import { useCalculator } from '../../hooks/useCalculator';
 import { SensitivityAnalyzer, type SensitivityResult } from '../../domain/services/SensitivityAnalyzer';
 import { ProjectInput } from '../../domain/schemas/ProjectSchema';
+import { PolicyPoolWidget } from '../PolicyPoolWidget';
 
 export const DataAnalysisStep: React.FC = () => {
   const { watch } = useFormContext();
   const { result: calculationResult } = useCalculator({ debounceMs: 300 });
 
-  const [activeTab, setActiveTab] = useState<'sensitivity' | 'benchmark' | 'comparison'>('sensitivity');
+  const [activeTab, setActiveTab] = useState<'sensitivity' | 'benchmark' | 'comparison' | 'policy'>('sensitivity');
   const [sensitivityResult, setSensitivityResult] = useState<SensitivityResult | null>(null);
   const [analyzing, setAnalyzing] = useState(false);
 
@@ -188,6 +189,16 @@ export const DataAnalysisStep: React.FC = () => {
             }`}
           >
             项目对比
+          </button>
+          <button
+            onClick={() => setActiveTab('policy')}
+            className={`py-4 px-1 border-b-2 font-medium text-sm ${
+              activeTab === 'policy'
+                ? 'border-blue-500 text-blue-600'
+                : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+            }`}
+          >
+            政策池
           </button>
         </nav>
       </div>
@@ -560,6 +571,51 @@ export const DataAnalysisStep: React.FC = () => {
               <p className="text-xs text-gray-500 mt-1">
                 支持保存多个项目方案并进行对比分析
               </p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Policy Pool Tab */}
+      {activeTab === 'policy' && (
+        <div className="space-y-6">
+          <div className="bg-white border border-gray-200 rounded-lg p-6">
+            <h4 className="text-base font-semibold text-gray-900 mb-2">
+              工商业储能政策池
+            </h4>
+            <p className="text-sm text-gray-500 mb-4">
+              实时更新的储能政策信息，基于AI智能分析
+            </p>
+
+            {/* Policy Pool Widget */}
+            <PolicyPoolWidget
+              maxItems={10}
+              autoRefresh={true}
+              refreshInterval={60 * 60 * 1000} // 1 hour
+              defaultProvince={ownerInfo?.province}
+              onPolicyClick={(policy) => {
+                console.log('Policy clicked:', policy);
+                // Handle policy click - open details, save to project, etc.
+              }}
+            />
+          </div>
+
+          {/* Policy Info Box */}
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+            <div className="flex items-start">
+              <svg className="w-5 h-5 text-blue-600 mt-0.5 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+              </svg>
+              <div>
+                <h5 className="text-sm font-medium text-blue-900 mb-1">
+                  关于政策池
+                </h5>
+                <p className="text-xs text-blue-800">
+                  政策池每小时自动更新，涵盖国家、省、市三级的电价、补贴、技术标准等政策。
+                  AI智能分析提取关键信息，为您提供政策解读和投资建议。
+                  点击政策标题可查看详细分析。
+                </p>
+              </div>
             </div>
           </div>
         </div>
