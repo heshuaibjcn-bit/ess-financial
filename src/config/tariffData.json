@@ -18,7 +18,20 @@
           "valleyPrice": 0.3694,
           "flatPrice": 0.6685,
           "effectiveDate": "2026-01-01",
-          "policyNumber": "粤发改价格〔2025〕583号"
+          "policyNumber": "粤发改价格〔2025〕583号",
+          "billComponents": {
+            "energyFee": {
+              "peak": 1.1025,
+              "valley": 0.3694,
+              "flat": 0.6685
+            },
+            "governmentSurcharges": {
+              "renewableEnergy": 0.019,
+              "reservoirFund": 0.0083,
+              "ruralGridRepayment": 0.02,
+              "total": 0.0473
+            }
+          }
         },
         "10kV": {
           "tariffType": "large_industrial",
@@ -27,7 +40,29 @@
           "valleyPrice": 0.3582,
           "flatPrice": 0.6389,
           "effectiveDate": "2026-01-01",
-          "policyNumber": "粤发改价格〔2025〕583号"
+          "policyNumber": "粤发改价格〔2025〕583号",
+          "billComponents": {
+            "energyFee": {
+              "peak": 1.0614,
+              "valley": 0.3582,
+              "flat": 0.6389
+            },
+            "basicFee": {
+              "type": "capacity",
+              "price": 23,
+              "description": "容量电价"
+            },
+            "powerFactorAdjustment": {
+              "standard": 0.90,
+              "rate": 0.015
+            },
+            "governmentSurcharges": {
+              "renewableEnergy": 0.019,
+              "reservoirFund": 0.0083,
+              "ruralGridRepayment": 0.02,
+              "total": 0.0473
+            }
+          }
         },
         "35kV": {
           "tariffType": "large_industrial",
@@ -36,7 +71,29 @@
           "valleyPrice": 0.3468,
           "flatPrice": 0.6093,
           "effectiveDate": "2026-01-01",
-          "policyNumber": "粤发改价格〔2025〕583号"
+          "policyNumber": "粤发改价格〔2025〕583号",
+          "billComponents": {
+            "energyFee": {
+              "peak": 1.0204,
+              "valley": 0.3468,
+              "flat": 0.6093
+            },
+            "basicFee": {
+              "type": "capacity",
+              "price": 23,
+              "description": "容量电价"
+            },
+            "powerFactorAdjustment": {
+              "standard": 0.90,
+              "rate": 0.015
+            },
+            "governmentSurcharges": {
+              "renewableEnergy": 0.019,
+              "reservoirFund": 0.0083,
+              "ruralGridRepayment": 0.02,
+              "total": 0.0473
+            }
+          }
         }
       },
       "timePeriods": {
@@ -65,7 +122,20 @@
           "valleyPrice": 0.4124,
           "flatPrice": 0.6958,
           "effectiveDate": "2026-01-01",
-          "policyNumber": "浙发改价格〔2025〕256号"
+          "policyNumber": "浙发改价格〔2025〕256号",
+          "billComponents": {
+            "energyFee": {
+              "peak": 1.1521,
+              "valley": 0.4124,
+              "flat": 0.6958
+            },
+            "governmentSurcharges": {
+              "renewableEnergy": 0.019,
+              "reservoirFund": 0.0083,
+              "ruralGridRepayment": 0.02,
+              "total": 0.0473
+            }
+          }
         },
         "10kV": {
           "tariffType": "large_industrial",
@@ -74,7 +144,29 @@
           "valleyPrice": 0.3989,
           "flatPrice": 0.6689,
           "effectiveDate": "2026-01-01",
-          "policyNumber": "浙发改价格〔2025〕256号"
+          "policyNumber": "浙发改价格〔2025〕256号",
+          "billComponents": {
+            "energyFee": {
+              "peak": 1.1123,
+              "valley": 0.3989,
+              "flat": 0.6689
+            },
+            "basicFee": {
+              "type": "capacity",
+              "price": 24,
+              "description": "容量电价"
+            },
+            "powerFactorAdjustment": {
+              "standard": 0.90,
+              "rate": 0.015
+            },
+            "governmentSurcharges": {
+              "renewableEnergy": 0.019,
+              "reservoirFund": 0.0083,
+              "ruralGridRepayment": 0.02,
+              "total": 0.0473
+            }
+          }
         },
         "35kV": {
           "tariffType": "large_industrial",
@@ -83,7 +175,29 @@
           "valleyPrice": 0.3854,
           "flatPrice": 0.6420,
           "effectiveDate": "2026-01-01",
-          "policyNumber": "浙发改价格〔2025〕256号"
+          "policyNumber": "浙发改价格〔2025〕256号",
+          "billComponents": {
+            "energyFee": {
+              "peak": 1.0725,
+              "valley": 0.3854,
+              "flat": 0.6420
+            },
+            "basicFee": {
+              "type": "capacity",
+              "price": 24,
+              "description": "容量电价"
+            },
+            "powerFactorAdjustment": {
+              "standard": 0.90,
+              "rate": 0.015
+            },
+            "governmentSurcharges": {
+              "renewableEnergy": 0.019,
+              "reservoirFund": 0.0083,
+              "ruralGridRepayment": 0.02,
+              "total": 0.0473
+            }
+          }
         }
       },
       "timePeriods": {
@@ -112,7 +226,20 @@
           "valleyPrice": 0.3982,
           "flatPrice": 0.6853,
           "effectiveDate": "2026-01-01",
-          "policyNumber": "苏发改价格〔2025〕142号"
+          "policyNumber": "苏发改价格〔2025〕142号",
+          "billComponents": {
+            "energyFee": {
+              "peak": 1.1345,
+              "valley": 0.3982,
+              "flat": 0.6853
+            },
+            "governmentSurcharges": {
+              "renewableEnergy": 0.019,
+              "reservoirFund": 0.0083,
+              "ruralGridRepayment": 0.02,
+              "total": 0.0473
+            }
+          }
         },
         "10kV": {
           "tariffType": "industrial",
@@ -121,7 +248,20 @@
           "valleyPrice": 0.3845,
           "flatPrice": 0.6536,
           "effectiveDate": "2026-01-01",
-          "policyNumber": "苏发改价格〔2025〕142号"
+          "policyNumber": "苏发改价格〔2025〕142号",
+          "billComponents": {
+            "energyFee": {
+              "peak": 1.0928,
+              "valley": 0.3845,
+              "flat": 0.6536
+            },
+            "governmentSurcharges": {
+              "renewableEnergy": 0.019,
+              "reservoirFund": 0.0083,
+              "ruralGridRepayment": 0.02,
+              "total": 0.0473
+            }
+          }
         },
         "35kV": {
           "tariffType": "large_industrial",
@@ -130,7 +270,29 @@
           "valleyPrice": 0.3708,
           "flatPrice": 0.6219,
           "effectiveDate": "2026-01-01",
-          "policyNumber": "苏发改价格〔2025〕142号"
+          "policyNumber": "苏发改价格〔2025〕142号",
+          "billComponents": {
+            "energyFee": {
+              "peak": 1.0512,
+              "valley": 0.3708,
+              "flat": 0.6219
+            },
+            "basicFee": {
+              "type": "capacity",
+              "price": 25,
+              "description": "容量电价"
+            },
+            "powerFactorAdjustment": {
+              "standard": 0.90,
+              "rate": 0.015
+            },
+            "governmentSurcharges": {
+              "renewableEnergy": 0.019,
+              "reservoirFund": 0.0083,
+              "ruralGridRepayment": 0.02,
+              "total": 0.0473
+            }
+          }
         }
       },
       "timePeriods": {
@@ -159,7 +321,20 @@
           "valleyPrice": 0.4128,
           "flatPrice": 0.7235,
           "effectiveDate": "2026-01-01",
-          "policyNumber": "鲁发改价格〔2025〕89号"
+          "policyNumber": "鲁发改价格〔2025〕89号",
+          "billComponents": {
+            "energyFee": {
+              "peak": 1.1823,
+              "valley": 0.4128,
+              "flat": 0.7235
+            },
+            "governmentSurcharges": {
+              "renewableEnergy": 0.019,
+              "reservoirFund": 0.0083,
+              "ruralGridRepayment": 0.02,
+              "total": 0.0473
+            }
+          }
         },
         "10kV": {
           "tariffType": "large_industrial",
@@ -168,7 +343,29 @@
           "valleyPrice": 0.3989,
           "flatPrice": 0.6928,
           "effectiveDate": "2026-01-01",
-          "policyNumber": "鲁发改价格〔2025〕89号"
+          "policyNumber": "鲁发改价格〔2025〕89号",
+          "billComponents": {
+            "energyFee": {
+              "peak": 1.1435,
+              "valley": 0.3989,
+              "flat": 0.6928
+            },
+            "basicFee": {
+              "type": "capacity",
+              "price": 22,
+              "description": "容量电价"
+            },
+            "powerFactorAdjustment": {
+              "standard": 0.90,
+              "rate": 0.015
+            },
+            "governmentSurcharges": {
+              "renewableEnergy": 0.019,
+              "reservoirFund": 0.0083,
+              "ruralGridRepayment": 0.02,
+              "total": 0.0473
+            }
+          }
         },
         "35kV": {
           "tariffType": "large_industrial",
@@ -177,7 +374,29 @@
           "valleyPrice": 0.3850,
           "flatPrice": 0.6621,
           "effectiveDate": "2026-01-01",
-          "policyNumber": "鲁发改价格〔2025〕89号"
+          "policyNumber": "鲁发改价格〔2025〕89号",
+          "billComponents": {
+            "energyFee": {
+              "peak": 1.1047,
+              "valley": 0.3850,
+              "flat": 0.6621
+            },
+            "basicFee": {
+              "type": "capacity",
+              "price": 22,
+              "description": "容量电价"
+            },
+            "powerFactorAdjustment": {
+              "standard": 0.90,
+              "rate": 0.015
+            },
+            "governmentSurcharges": {
+              "renewableEnergy": 0.019,
+              "reservoirFund": 0.0083,
+              "ruralGridRepayment": 0.02,
+              "total": 0.0473
+            }
+          }
         }
       },
       "timePeriods": {
@@ -206,7 +425,20 @@
           "valleyPrice": 0.4289,
           "flatPrice": 0.7352,
           "effectiveDate": "2026-01-01",
-          "policyNumber": "沪发改价管〔2025〕23号"
+          "policyNumber": "沪发改价管〔2025〕23号",
+          "billComponents": {
+            "energyFee": {
+              "peak": 1.2156,
+              "valley": 0.4289,
+              "flat": 0.7352
+            },
+            "governmentSurcharges": {
+              "renewableEnergy": 0.019,
+              "reservoirFund": 0.0083,
+              "ruralGridRepayment": 0.02,
+              "total": 0.0473
+            }
+          }
         },
         "10kV": {
           "tariffType": "large_industrial",
@@ -215,7 +447,29 @@
           "valleyPrice": 0.4145,
           "flatPrice": 0.7035,
           "effectiveDate": "2026-01-01",
-          "policyNumber": "沪发改价管〔2025〕23号"
+          "policyNumber": "沪发改价管〔2025〕23号",
+          "billComponents": {
+            "energyFee": {
+              "peak": 1.1738,
+              "valley": 0.4145,
+              "flat": 0.7035
+            },
+            "basicFee": {
+              "type": "capacity",
+              "price": 26,
+              "description": "容量电价"
+            },
+            "powerFactorAdjustment": {
+              "standard": 0.90,
+              "rate": 0.015
+            },
+            "governmentSurcharges": {
+              "renewableEnergy": 0.019,
+              "reservoirFund": 0.0083,
+              "ruralGridRepayment": 0.02,
+              "total": 0.0473
+            }
+          }
         },
         "35kV": {
           "tariffType": "large_industrial",
@@ -224,7 +478,29 @@
           "valleyPrice": 0.4001,
           "flatPrice": 0.6718,
           "effectiveDate": "2026-01-01",
-          "policyNumber": "沪发改价管〔2025〕23号"
+          "policyNumber": "沪发改价管〔2025〕23号",
+          "billComponents": {
+            "energyFee": {
+              "peak": 1.1320,
+              "valley": 0.4001,
+              "flat": 0.6718
+            },
+            "basicFee": {
+              "type": "capacity",
+              "price": 26,
+              "description": "容量电价"
+            },
+            "powerFactorAdjustment": {
+              "standard": 0.90,
+              "rate": 0.015
+            },
+            "governmentSurcharges": {
+              "renewableEnergy": 0.019,
+              "reservoirFund": 0.0083,
+              "ruralGridRepayment": 0.02,
+              "total": 0.0473
+            }
+          }
         }
       },
       "timePeriods": {
@@ -253,7 +529,20 @@
           "valleyPrice": 0.4238,
           "flatPrice": 0.7852,
           "effectiveDate": "2026-01-01",
-          "policyNumber": "京发改〔2025〕156号"
+          "policyNumber": "京发改〔2025〕156号",
+          "billComponents": {
+            "energyFee": {
+              "peak": 1.3645,
+              "valley": 0.4238,
+              "flat": 0.7852
+            },
+            "governmentSurcharges": {
+              "renewableEnergy": 0.019,
+              "reservoirFund": 0.0083,
+              "ruralGridRepayment": 0.02,
+              "total": 0.0473
+            }
+          }
         },
         "10kV": {
           "tariffType": "large_industrial",
@@ -262,7 +551,29 @@
           "valleyPrice": 0.4095,
           "flatPrice": 0.7523,
           "effectiveDate": "2026-01-01",
-          "policyNumber": "京发改〔2025〕156号"
+          "policyNumber": "京发改〔2025〕156号",
+          "billComponents": {
+            "energyFee": {
+              "peak": 1.3182,
+              "valley": 0.4095,
+              "flat": 0.7523
+            },
+            "basicFee": {
+              "type": "capacity",
+              "price": 24,
+              "description": "容量电价"
+            },
+            "powerFactorAdjustment": {
+              "standard": 0.90,
+              "rate": 0.015
+            },
+            "governmentSurcharges": {
+              "renewableEnergy": 0.019,
+              "reservoirFund": 0.0083,
+              "ruralGridRepayment": 0.02,
+              "total": 0.0473
+            }
+          }
         },
         "35kV": {
           "tariffType": "large_industrial",
@@ -271,7 +582,29 @@
           "valleyPrice": 0.3952,
           "flatPrice": 0.7194,
           "effectiveDate": "2026-01-01",
-          "policyNumber": "京发改〔2025〕156号"
+          "policyNumber": "京发改〔2025〕156号",
+          "billComponents": {
+            "energyFee": {
+              "peak": 1.2719,
+              "valley": 0.3952,
+              "flat": 0.7194
+            },
+            "basicFee": {
+              "type": "capacity",
+              "price": 24,
+              "description": "容量电价"
+            },
+            "powerFactorAdjustment": {
+              "standard": 0.90,
+              "rate": 0.015
+            },
+            "governmentSurcharges": {
+              "renewableEnergy": 0.019,
+              "reservoirFund": 0.0083,
+              "ruralGridRepayment": 0.02,
+              "total": 0.0473
+            }
+          }
         }
       },
       "timePeriods": {

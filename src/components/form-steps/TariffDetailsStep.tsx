@@ -12,12 +12,121 @@
 import React, { useState, useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
 import HourlyTariffChart from '../charts/HourlyTariffChart';
-import { type HourlyPrice, PROVINCE_NAMES } from '../../domain/schemas/ProjectSchema';
+import { type HourlyPrice, PROVINCE_NAMES, type ElectricityBillComponents } from '../../domain/schemas/ProjectSchema';
 import { getTariffService } from '../../services/tariffDataService';
 import TariffUpdateButton from '../TariffUpdateButton';
 import { type TariffType } from '../../domain/schemas/ProjectSchema';
 
-const TARIFF_TYPE_OPTIONS: Array<{ value: TariffType; label: string; description: string }> = [
+interface BillComponentsDisplayProps {
+  billComponents: ElectricityBillComponents;
+  tariffType: TariffType;
+  peakPrice: number;
+  flatPrice: number;
+  valleyPrice: number;
+}
+
+const BillComponentsDisplay: React.FC<BillComponentsDisplayProps> = ({
+  billComponents,
+  tariffType,
+  peakPrice,
+  flatPrice,
+  valleyPrice,
+}) => {
+  const isLargeIndustrial = tariffType === 'large_industrial';
+
+  // 计算综合电价估算
+  // 对于大工业用户，基本电费需要折算到每kWh
+  // 假设每月用电量100,000 kWh，基本电费折算约为0.023-0.026元/kWh
+  const basicFeePerKwh = isLargeIndustrial && billComponents.basicFee
+    ? (billComponents.basicFee.price * 1000) / 100000 // 假设10万kWh/月
+    : 0;
+
+  const avgEnergyPrice = (peakPrice + flatPrice + valleyPrice) / 3;
+  const governmentTotal = billComponents.governmentSurcharges?.total || 0;
+  const estimatedTotalPrice = avgEnergyPrice + basicFeePerKwh + governmentTotal;
+
+  return (
+    <div className="space-y-3">
+      {/* 电度电费 */}
+      <div className="flex justify-between items-center py-2 border-b border-gray-100">
+        <span className="text-sm text-gray-600">电度电费（峰/平/谷）</span>
+        <span className="text-sm font-medium text-gray-900">
+          {peakPrice.toFixed(3)}/{flatPrice.toFixed(3)}/{valleyPrice.toFixed(3)} 元/kWh
+        </span>
+      </div>
+
+      {/* 基本电费（仅大工业） */}
+      {isLargeIndustrial && billComponents.basicFee && (
+        <div className="flex justify-between items-center py-2 border-b border-gray-100">
+          <span className="text-sm text-gray-600">
+            基本电费（{billComponents.basicFee.type === 'capacity' ? '容量' : '需量'}电价）
+          </span>
+          <span className="text-sm font-medium text-gray-900">
+            {billComponents.basicFee.price} 元/{billComponents.basicFee.type === 'capacity' ? 'kVA' : 'kW'}/月
+          </span>
+        </div>
+      )}
+
+      {/* 政府性基金 */}
+      {billComponents.governmentSurcharges && (
+        <>
+          <div className="flex justify-between items-center py-2 border-b border-gray-100">
+            <span className="text-sm text-gray-600">政府性基金及附加</span>
+            <span className="text-sm font-medium text-gray-900">
+              {billComponents.governmentSurcharges.total.toFixed(4)} 元/kWh
+            </span>
+          </div>
+
+          {/* 展开/收起详情 */}
+          <details className="mt-2">
+            <summary className="text-xs text-blue-600 cursor-pointer hover:underline select-none">
+              查看基金明细
+            </summary>
+            <div className="mt-2 ml-4 space-y-1 text-xs text-gray-500 bg-gray-50 p-2 rounded">
+              <div className="flex justify-between">
+                <span>可再生能源附加:</span>
+                <span>{billComponents.governmentSurcharges.renewableEnergy.toFixed(4)} 元/kWh</span>
+              </div>
+              <div className="flex justify-between">
+                <span>水库移民基金:</span>
+                <span>{billComponents.governmentSurcharges.reservoirFund.toFixed(4)} 元/kWh</span>
+              </div>
+              <div className="flex justify-between">
+                <span>农网还贷资金:</span>
+                <span>{billComponents.governmentSurcharges.ruralGridRepayment.toFixed(4)} 元/kWh</span>
+              </div>
+            </div>
+          </details>
+        </>
+      )}
+
+      {/* 功率因数调整（仅大工业） */}
+      {isLargeIndustrial && billComponents.powerFactorAdjustment && (
+        <div className="flex justify-between items-center py-2 border-b border-gray-100">
+          <span className="text-sm text-gray-600">功率因数调整</span>
+          <span className="text-sm font-medium text-gray-900">
+            标准 {billComponents.powerFactorAdjustment.standard.toFixed(2)} | 调整率 ±{(billComponents.powerFactorAdjustment.rate * 100).toFixed(1)}%
+          </span>
+        </div>
+      )}
+
+      {/* 综合电价 */}
+      <div className="flex justify-between items-center py-3 bg-blue-50 -mx-2 px-3 rounded-lg mt-3">
+        <span className="text-sm font-medium text-gray-900">综合电价估算</span>
+        <span className="text-lg font-bold text-blue-600">
+          ¥{estimatedTotalPrice.toFixed(3)} 元/kWh
+        </span>
+      </div>
+
+      {/* 说明文字 */}
+      <p className="text-xs text-gray-500 mt-2">
+        * 综合电价包含电度电费、政府性基金及附加。大工业用户的基本电费已按月用电量10万kWh折算到每kWh，实际金额需根据用电量计算。
+      </p>
+    </div>
+  );
+};
+
+const TARIFF_TYPE_OPTIONS: Array<{ value: TariffType | 'agricultural' | 'residential'; label: string; description: string }> = [
   {
     value: 'industrial',
     label: '一般工商业',
@@ -27,6 +136,11 @@ const TARIFF_TYPE_OPTIONS: Array<{ value: TariffType; label: string; description
     value: 'large_industrial',
     label: '大工业',
     description: '1千伏及以上大工业用电'
+  },
+  {
+    value: 'commercial',
+    label: '商业',
+    description: '商业用电'
   },
   {
     value: 'agricultural',
@@ -52,7 +166,6 @@ export const TariffDetailsStep: React.FC = () => {
   // State for hourly prices
   const [hourlyPrices, setHourlyPrices] = useState<HourlyPrice[]>([]);
   const [currentTariff, setCurrentTariff] = useState<any>(null);
-  const [isAutoFilled, setIsAutoFilled] = useState(false);
   const [isUserChanged, setIsUserChanged] = useState(false);
 
   /**
@@ -62,7 +175,6 @@ export const TariffDetailsStep: React.FC = () => {
     if (voltageLevel && !tariffType && !isUserChanged) {
       const recommendedType = tariffService.getRecommendedTariffType(voltageLevel);
       setValue('tariffDetail.tariffType', recommendedType);
-      setIsAutoFilled(true);
     }
   }, [voltageLevel, tariffType, setValue, isUserChanged]);
 
@@ -117,10 +229,12 @@ export const TariffDetailsStep: React.FC = () => {
   /**
    * 处理电价类型选择
    */
-  const handleTariffTypeChange = (value: TariffType) => {
-    setValue('tariffDetail.tariffType', value);
+  const handleTariffTypeChange = (value: TariffType | 'agricultural' | 'residential') => {
+    // Only update the form if the value is a valid TariffType
+    if (value === 'industrial' || value === 'commercial' || value === 'large_industrial') {
+      setValue('tariffDetail.tariffType', value);
+    }
     setIsUserChanged(true);
-    setIsAutoFilled(false);
   };
 
   // Calculate statistics
@@ -129,20 +243,6 @@ export const TariffDetailsStep: React.FC = () => {
     spread: Math.max(...hourlyPrices.map(h => h.price)) - Math.min(...hourlyPrices.map(h => h.price)),
     peakValleyRatio: currentTariff ? currentTariff.peakPrice / currentTariff.valleyPrice : 0,
   } : null;
-
-  // Get voltage level description
-  const getVoltageDescription = (voltage: string) => {
-    switch (voltage) {
-      case '0.4kV':
-        return '低压（不满1千伏）';
-      case '10kV':
-        return '高压（1-10千伏）';
-      case '35kV':
-        return '超高压（35千伏及以上）';
-      default:
-        return voltage;
-    }
-  };
 
   return (
     <div className="space-y-6">
@@ -172,7 +272,7 @@ export const TariffDetailsStep: React.FC = () => {
               <svg className="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
               </svg>
-              项目所在地：{PROVINCE_NAMES[province] || province}
+              项目所在地：{PROVINCE_NAMES[province as keyof typeof PROVINCE_NAMES] || province}
             </span>
           )}
 
@@ -319,6 +419,23 @@ export const TariffDetailsStep: React.FC = () => {
             <p className="text-xs text-gray-500 mb-1">套利空间</p>
             <p className="text-lg font-bold text-green-600">¥{stats.spread.toFixed(3)}</p>
           </div>
+        </div>
+      )}
+
+      {/* Electricity Bill Components */}
+      {currentTariff?.billComponents && (
+        <div className="bg-white border border-gray-200 rounded-lg p-5">
+          <h4 className="text-sm font-semibold text-gray-900 mb-4">
+            电费组成明细
+          </h4>
+
+          <BillComponentsDisplay
+            billComponents={currentTariff.billComponents}
+            tariffType={tariffType}
+            peakPrice={currentTariff.peakPrice}
+            flatPrice={currentTariff.flatPrice}
+            valleyPrice={currentTariff.valleyPrice}
+          />
         </div>
       )}
 

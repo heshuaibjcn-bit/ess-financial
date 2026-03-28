@@ -215,6 +215,104 @@ export const SeasonalAdjustmentSchema = z.object({
 export type SeasonalAdjustment = z.infer<typeof SeasonalAdjustmentSchema>;
 
 /**
+ * 基本电费类型（仅大工业用户）
+ */
+export const BASIC_FEE_TYPES = ['capacity', 'demand'] as const;
+export type BasicFeeType = (typeof BASIC_FEE_TYPES)[number];
+
+/**
+ * 基本电费 Schema（仅大工业用户）
+ */
+export const BasicFeeSchema = z.object({
+  type: z.enum(BASIC_FEE_TYPES),
+  price: z.number()
+    .nonnegative('基本电费不能为负'),
+  description: z.string()
+    .min(1, '基本电费描述不能为空'),
+});
+
+export type BasicFee = z.infer<typeof BasicFeeSchema>;
+
+/**
+ * 功率因数调整 Schema（仅大工业用户）
+ */
+export const PowerFactorAdjustmentSchema = z.object({
+  standard: z.number()
+    .min(0, '功率因数标准不能为负')
+    .max(1, '功率因数标准不能大于1'),
+  rate: z.number()
+    .nonnegative('调整率不能为负'),
+});
+
+export type PowerFactorAdjustment = z.infer<typeof PowerFactorAdjustmentSchema>;
+
+/**
+ * 政府性基金及附加 Schema
+ */
+export const GovernmentSurchargesSchema = z.object({
+  renewableEnergy: z.number()
+    .nonnegative('可再生能源附加不能为负'),
+  reservoirFund: z.number()
+    .nonnegative('水库移民基金不能为负'),
+  ruralGridRepayment: z.number()
+    .nonnegative('农网还贷资金不能为负'),
+  total: z.number()
+    .nonnegative('政府性基金总计不能为负'),
+});
+
+export type GovernmentSurcharges = z.infer<typeof GovernmentSurchargesSchema>;
+
+/**
+ * 系统运行费用 Schema
+ */
+export const SystemOperatingFeesSchema = z.object({
+  auxiliaryServices: z.number()
+    .nonnegative('辅助服务费用不能为负')
+    .optional(),
+  total: z.number()
+    .nonnegative('系统运行费用总计不能为负')
+    .optional(),
+});
+
+export type SystemOperatingFees = z.infer<typeof SystemOperatingFeesSchema>;
+
+/**
+ * 电度电费 Schema
+ */
+export const EnergyFeeSchema = z.object({
+  peak: z.number()
+    .nonnegative('峰时电价不能为负'),
+  valley: z.number()
+    .nonnegative('谷时电价不能为负'),
+  flat: z.number()
+    .nonnegative('平时电价不能为负'),
+});
+
+export type EnergyFee = z.infer<typeof EnergyFeeSchema>;
+
+/**
+ * 电费单组成 Schema（完整的电费单各组成部分）
+ */
+export const ElectricityBillComponentsSchema = z.object({
+  // 基本电费（仅大工业用户）
+  basicFee: BasicFeeSchema.optional(),
+
+  // 电度电费
+  energyFee: EnergyFeeSchema,
+
+  // 功率因数调整（仅大工业用户）
+  powerFactorAdjustment: PowerFactorAdjustmentSchema.optional(),
+
+  // 政府性基金及附加
+  governmentSurcharges: GovernmentSurchargesSchema.optional(),
+
+  // 系统运行费用
+  systemOperatingFees: SystemOperatingFeesSchema.optional(),
+});
+
+export type ElectricityBillComponents = z.infer<typeof ElectricityBillComponentsSchema>;
+
+/**
  * Tariff Detail Schema (电价详细信息)
  */
 export const TariffDetailSchema = z.object({
@@ -235,6 +333,9 @@ export const TariffDetailSchema = z.object({
   // 季节性调整（可选）
   seasonalAdjustments: z.array(SeasonalAdjustmentSchema)
     .optional(),
+
+  // 电费单组成（可选，用于显示完整电费单信息）
+  billComponents: ElectricityBillComponentsSchema.optional(),
 });
 
 export type TariffDetail = z.infer<typeof TariffDetailSchema>;

@@ -5,12 +5,17 @@
  * 数据来源：国家发改委、国家电网、南方电网官网
  */
 
-import { type Province, PROVINCES } from '@/domain/schemas/ProjectSchema';
-import type { VoltageLevel, TariffType, HourlyPrice } from '@/domain/schemas/ProjectSchema';
+import { type Province } from '@/domain/schemas/ProjectSchema';
+import type {
+  VoltageLevel,
+  TariffType,
+  HourlyPrice,
+  ElectricityBillComponents,
+} from '@/domain/schemas/ProjectSchema';
 import tariffDataJson from '@/config/tariffData.json';
 
 /**
- * 电价数据接口
+ * 电价数据接口（包含完整电费单组成）
  */
 export interface TariffInfo {
   tariffType: TariffType;
@@ -20,12 +25,26 @@ export interface TariffInfo {
   flatPrice: number;
   effectiveDate: string;
   policyNumber: string;
+  // 电费单组成（可选）
+  billComponents?: ElectricityBillComponents;
 }
 
 export interface ProvinceTariffData {
   name: string;
   region: string;
   tariffs: Record<VoltageLevel, TariffInfo>;
+  timePeriods: {
+    peak: { hours: number[]; description: string };
+    valley: { hours: number[]; description: string };
+    flat: { hours: number[]; description: string };
+  };
+}
+
+// Extended interface for the JSON data structure
+export interface ProvinceTariffDataJson {
+  name: string;
+  region: string;
+  tariffs: Record<VoltageLevel, any>; // Using any to support both old and new structure
   timePeriods: {
     peak: { hours: number[]; description: string };
     valley: { hours: number[]; description: string };
@@ -64,7 +83,7 @@ const STORAGE_KEYS = {
  */
 export class TariffDataService {
   private tariffData: typeof tariffDataJson;
-  private cachedData: Map<string, ProvinceTariffData> = new Map();
+  private cachedData: Map<string, ProvinceTariffDataJson> = new Map();
 
   constructor() {
     this.tariffData = tariffDataJson as typeof tariffDataJson;
@@ -103,7 +122,7 @@ export class TariffDataService {
   /**
    * 获取省份数据
    */
-  public getProvinceData(province: Province): ProvinceTariffData | null {
+  public getProvinceData(province: Province): ProvinceTariffDataJson | null {
     const cacheKey = province;
 
     if (this.cachedData.has(cacheKey)) {
@@ -129,7 +148,22 @@ export class TariffDataService {
       return this.getDefaultTariff(voltageLevel);
     }
 
-    return provinceData.tariffs[voltageLevel] || this.getDefaultTariff(voltageLevel);
+    const tariff = provinceData.tariffs[voltageLevel];
+    if (!tariff) {
+      return this.getDefaultTariff(voltageLevel);
+    }
+
+    // Ensure the returned object has the correct type
+    return {
+      tariffType: tariff.tariffType as TariffType,
+      name: tariff.name,
+      peakPrice: tariff.peakPrice,
+      valleyPrice: tariff.valleyPrice,
+      flatPrice: tariff.flatPrice,
+      effectiveDate: tariff.effectiveDate,
+      policyNumber: tariff.policyNumber,
+      billComponents: tariff.billComponents,
+    } as TariffInfo;
   }
 
   /**
@@ -137,14 +171,48 @@ export class TariffDataService {
    */
   private getDefaultTariff(voltageLevel: VoltageLevel): TariffInfo {
     const defaults = this.tariffData.defaults.otherProvinces[voltageLevel];
-    const timePeriods = this.tariffData.defaults.timePeriods;
+
+    // 默认政府性基金（全国统一）
+    const defaultGovernmentSurcharges = {
+      renewableEnergy: 0.019,
+      reservoirFund: 0.0083,
+      ruralGridRepayment: 0.02,
+      total: 0.0473,
+    };
+
+    // 大工业用户的基本电费和功率因数调整
+    const isLargeIndustrial = voltageLevel !== '0.4kV';
+
+    const billComponents: ElectricityBillComponents = {
+      energyFee: {
+        peak: defaults.peakPrice,
+        valley: defaults.valleyPrice,
+        flat: defaults.flatPrice,
+      },
+      governmentSurcharges: defaultGovernmentSurcharges,
+      ...(isLargeIndustrial && {
+        basicFee: {
+          type: 'capacity' as const,
+          price: 23,
+          description: '容量电价',
+        },
+        powerFactorAdjustment: {
+          standard: 0.90,
+          rate: 0.015,
+        },
+      }),
+    };
 
     return {
-      ...defaults,
+      tariffType: defaults.tariffType as TariffType,
       name: `${voltageLevel}默认电价`,
+      peakPrice: defaults.peakPrice,
+      valleyPrice: defaults.valleyPrice,
+      flatPrice: defaults.flatPrice,
       effectiveDate: new Date().toISOString().split('T')[0],
       policyNumber: '默认数据',
-    };
+      billComponents,
+    } as TariffInfo;
   }
 
   /**
