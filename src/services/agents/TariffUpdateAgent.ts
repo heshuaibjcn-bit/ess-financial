@@ -12,13 +12,13 @@ import { NanoAgent, AgentCapability } from './NanoAgent';
 import { getTariffService } from '../tariffDataService';
 import type { TariffInfo, HourlyPrice } from '../../domain/schemas/ProjectSchema';
 
-interface TariffUpdateInput {
+export interface TariffUpdateInput {
   provinces: string[];
   checkLatest?: boolean;
   compareWithPrevious?: boolean;
 }
 
-interface TariffUpdateResult {
+export interface TariffUpdateResult {
   provincesChecked: number;
   provincesUpdated: number;
   tariffChanges: TariffChange[];
@@ -26,7 +26,7 @@ interface TariffUpdateResult {
   alerts: TariffAlert[];
 }
 
-interface TariffChange {
+export interface TariffChange {
   province: string;
   provinceName: string;
   type: 'peak' | 'valley' | 'flat' | 'structure';
@@ -38,7 +38,7 @@ interface TariffChange {
   impact: string;
 }
 
-interface TariffAlert {
+export interface TariffAlert {
   severity: 'info' | 'warning' | 'urgent';
   province: string;
   message: string;

@@ -286,7 +286,7 @@ For Chinese reports:
   }
 
   /**
-   * Generate executive summary
+   * Generate executive summary with enhanced JSON parsing
    */
   private async generateExecutiveSummary(input: ReportInput): Promise<ExecutiveSummary> {
     this.log('Generating executive summary');
@@ -310,15 +310,27 @@ For Chinese reports:
 
     try {
       const response = await this.think(prompt);
-      const parsed = this.parseJSON<ExecutiveSummary>(response);
-      if (parsed) {
-        return parsed;
+
+      // Use enhanced extraction
+      const extraction = this.extractJSONFromMarkdown(response);
+
+      if (extraction.success && extraction.data) {
+        // Validate structure
+        const requiredFields = ['projectOverview', 'overallFeasibility', 'keyMetrics', 'recommendation', 'confidence'];
+        if (this.validateResponseStructure(extraction.data, requiredFields)) {
+          this.log('info', 'Executive summary parsed and validated successfully');
+          return extraction.data as ExecutiveSummary;
+        } else {
+          this.log('warn', 'Executive summary missing required fields, using fallback');
+        }
+      } else {
+        this.log('warn', `JSON extraction failed: ${extraction.error}, using fallback`);
       }
     } catch (error) {
       this.log('Failed to generate executive summary', error);
     }
 
-    // Fallback
+    // Enhanced fallback with proper structure
     return {
       projectOverview: `${input.companyName}位于${input.province}的储能项目，规模为1MW/2MWh，采用峰谷套利模式。`,
       overallFeasibility: '项目经济性良好，技术可行性高，建议推进。',
@@ -423,7 +435,7 @@ For Chinese reports:
   }
 
   /**
-   * Generate recommendations
+   * Generate recommendations with enhanced JSON parsing
    */
   private async generateRecommendations(
     input: ReportInput,
@@ -451,15 +463,26 @@ ${risks.map(r => `- ${r.category}: ${r.description} (${r.level})`).join('\n')}
 
     try {
       const response = await this.think(prompt);
-      const parsed = this.parseJSON<Recommendation[]>(response);
-      if (parsed) {
-        return parsed;
+
+      // Use enhanced extraction
+      const extraction = this.extractJSONFromMarkdown(response);
+
+      if (extraction.success && extraction.data) {
+        // Validate it's an array
+        if (Array.isArray(extraction.data)) {
+          this.log('info', `Successfully parsed ${extraction.data.length} recommendations`);
+          return extraction.data as Recommendation[];
+        } else {
+          this.log('warn', 'Response is not an array, using fallback');
+        }
+      } else {
+        this.log('warn', `JSON extraction failed: ${extraction.error}, using fallback`);
       }
     } catch (error) {
       this.log('Failed to generate recommendations', error);
     }
 
-    // Fallback recommendations
+    // Enhanced fallback recommendations
     return [
       {
         priority: 'high',

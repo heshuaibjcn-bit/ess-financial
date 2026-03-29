@@ -11,15 +11,21 @@
  * Now powered by GLM-5-Turbo (智谱AI)
  */
 
+import { getCommunicationLogger } from './AgentCommunicationLogger';
+
 /**
  * GLM Client for智谱AI API
  */
 class GLMClient {
   private apiKey: string;
   private baseURL = 'https://open.bigmodel.cn/api/paas/v4/chat/completions';
+  private agentType: string;
+  private agentName: string;
 
-  constructor(apiKey: string) {
+  constructor(apiKey: string, agentType: string, agentName: string) {
     this.apiKey = apiKey;
+    this.agentType = agentType;
+    this.agentName = agentName;
   }
 
   async messagesCreate(params: {
@@ -28,50 +34,104 @@ class GLMClient {
     system: string;
     messages: Array<{ role: string; content: string }>;
   }): Promise<{ content: Array<{ type: string; text: string }> }> {
-    const response = await fetch(this.baseURL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${this.apiKey}`,
-      },
-      body: JSON.stringify({
-        model: params.model,
-        messages: [
-          { role: 'system', content: params.system },
-          ...params.messages,
-        ],
-        max_tokens: params.max_tokens,
-        temperature: 0.3,
-      }),
+    const logger = getCommunicationLogger();
+    const requestId = `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    const startTime = Date.now();
+
+    // 记录请求
+    const prompt = params.messages.map(m => `${m.role}: ${m.content}`).join('\n');
+    logger.logRequest({
+      agentType: this.agentType,
+      agentName: this.agentName,
+      model: params.model,
+      prompt: `${params.system}\n\n${prompt}`,
+      requestId,
     });
 
-    if (!response.ok) {
-      const errorText = await response.text();
-      throw new Error(`GLM API error: ${response.status} - ${errorText}`);
+    try {
+      const response = await fetch(this.baseURL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${this.apiKey}`,
+        },
+        body: JSON.stringify({
+          model: params.model,
+          messages: [
+            { role: 'system', content: params.system },
+            ...params.messages,
+          ],
+          max_tokens: params.max_tokens,
+          temperature: 0.3,
+        }),
+      });
+
+      const duration = Date.now() - startTime;
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        // 记录错误
+        logger.logError({
+          agentType: this.agentType,
+          agentName: this.agentName,
+          model: params.model,
+          error: `GLM API error: ${response.status} - ${errorText}`,
+          requestId,
+        });
+        throw new Error(`GLM API error: ${response.status} - ${errorText}`);
     }
 
     const data = await response.json();
+    const responseText = data.choices[0]?.message?.content || '';
+
+    // 记录响应
+    logger.logResponse({
+      agentType: this.agentType,
+      agentName: this.agentName,
+      model: params.model,
+      response: responseText,
+      tokens: {
+        input: data.usage?.prompt_tokens || 0,
+        output: data.usage?.completion_tokens || 0,
+        total: data.usage?.total_tokens || 0,
+      },
+      duration,
+      requestId,
+    });
 
     return {
       content: [
         {
           type: 'text',
-          text: data.choices[0]?.message?.content || '',
+          text: responseText,
         },
       ],
     };
+  } catch (error) {
+    // 记录未捕获的错误
+    if (!(error instanceof Error) || !error.message.includes('GLM API error')) {
+      logger.logError({
+        agentType: this.agentType,
+        agentName: this.agentName,
+        model: params.model,
+        error: error instanceof Error ? error.message : String(error),
+        requestId,
+      });
+    }
+    throw error;
   }
 }
 
+}
 
-export type AgentMessage = {
+export interface AgentMessage {
   role: 'user' | 'assistant' | 'system';
   content: string;
   timestamp: string;
   reasoning?: string; // Show agent's thought process
 }
 
-export type AgentTask = {
+export interface AgentTask {
   id: string;
   type: string;
   input: any;
@@ -83,7 +143,7 @@ export type AgentTask = {
   messages: AgentMessage[];
 }
 
-export type AgentConfig = {
+export interface AgentConfig {
   name: string;
   description: string;
   version: string;
@@ -93,7 +153,7 @@ export type AgentConfig = {
   systemPrompt: string;
 }
 
-export type AgentCapability = {
+export interface AgentCapability {
   name: string;
   description: string;
   inputFormat: string;
@@ -119,7 +179,11 @@ export class NanoAgent {
   protected initializeClient(): void {
     const apiKey = this.getApiKey();
     if (apiKey) {
-      this.client = new GLMClient(apiKey);
+      this.client = new GLMClient(
+        apiKey,
+        this.config.name,
+        this.config.name
+      );
     }
   }
 
@@ -167,7 +231,7 @@ export class NanoAgent {
   abstract execute(input: any): Promise<any>;
 
   /**
-   * Run AI reasoning
+   * Run AI reasoning with automatic metric tracking
    */
   protected async think(prompt: string): Promise<string> {
     if (!this.client) {
@@ -186,18 +250,132 @@ export class NanoAgent {
   }
 
   /**
-   * Parse structured output from AI
+   * Record agent success with timing (for metrics tracking)
+   * Call this when an agent completes a task successfully
+   */
+  protected recordSuccess(duration: number, metadata?: Record<string, any>): void {
+    const logger = getCommunicationLogger();
+    logger.logResponse({
+      agentType: this.config.name,
+      agentName: this.config.name,
+      model: this.config.model,
+      response: 'Task completed successfully',
+      tokens: { input: 0, output: 0, total: 0 }, // Will be updated by actual API call
+      duration,
+      metadata,
+    });
+  }
+
+  /**
+   * Record agent failure with timing (for metrics tracking)
+   * Call this when an agent fails to complete a task
+   */
+  protected recordFailure(duration: number, error: Error, metadata?: Record<string, any>): void {
+    const logger = getCommunicationLogger();
+    logger.logError({
+      agentType: this.config.name,
+      agentName: this.config.name,
+      model: this.config.model,
+      error: error.message,
+      metadata,
+    });
+  }
+
+  /**
+   * Parse structured output from AI with robust fallback handling
    */
   protected parseJSON<T>(text: string): T | null {
-    try {
-      const jsonMatch = text.match(/\{[\s\S]*\}/);
-      if (jsonMatch) {
-        return JSON.parse(jsonMatch[0]) as T;
+    // Try multiple extraction patterns in order of specificity
+    const patterns = [
+      /```json\s*([\s\S]*?)\s*```/,  // Standard markdown JSON blocks
+      /```\s*([\s\S]*?)\s*```/,      // Generic code blocks
+      /\{[\s\S]*\}/                   // Direct JSON object (fallback)
+    ];
+
+    for (const pattern of patterns) {
+      const match = text.match(pattern);
+      if (match) {
+        try {
+          const jsonStr = match[1] || match[0]; // Use capture group if available, else full match
+          const parsed = JSON.parse(jsonStr.trim());
+          this.log('info', `Successfully parsed JSON using pattern: ${pattern}`);
+          return parsed as T;
+        } catch (e) {
+          this.log('warn', `Pattern matched but JSON parse failed: ${e}`);
+          continue; // Try next pattern
+        }
       }
-    } catch (error) {
-      console.error('Failed to parse JSON:', error);
     }
-    return null;
+
+    // Last resort: try parsing entire response as JSON
+    try {
+      return JSON.parse(text.trim()) as T;
+    } catch {
+      this.log('error', 'All JSON parsing attempts failed');
+      return null;
+    }
+  }
+
+  /**
+   * Extract JSON from markdown with enhanced error handling
+   * This provides more detailed feedback for debugging
+   */
+  protected extractJSONFromMarkdown(content: string): {
+    success: boolean;
+    data?: any;
+    error?: string;
+    rawMatch?: string;
+  } {
+    const patterns = [
+      { name: 'markdown-json', regex: /```json\s*([\s\S]*?)\s*```/ },
+      { name: 'markdown-code', regex: /```\s*([\s\S]*?)\s*```/ },
+      { name: 'direct-json', regex: /\{[\s\S]*\}/ }
+    ];
+
+    for (const pattern of patterns) {
+      const match = content.match(pattern.regex);
+      if (match) {
+        try {
+          const jsonStr = (match[1] || match[0]).trim();
+          const data = JSON.parse(jsonStr);
+          return {
+            success: true,
+            data,
+            rawMatch: jsonStr.substring(0, 100) // First 100 chars for debugging
+          };
+        } catch (e) {
+          return {
+            success: false,
+            error: `Pattern "${pattern.name}" matched but JSON parse failed: ${e}`,
+            rawMatch: (match[1] || match[0]).substring(0, 100)
+          };
+        }
+      }
+    }
+
+    return {
+      success: false,
+      error: 'No JSON-like patterns found in response'
+    };
+  }
+
+  /**
+   * Validate response structure (for report generation, etc.)
+   */
+  protected validateResponseStructure(data: any, requiredFields: string[]): boolean {
+    if (!data || typeof data !== 'object') {
+      this.log('error', 'Response is not an object');
+      return false;
+    }
+
+    for (const field of requiredFields) {
+      if (!data[field]) {
+        this.log('error', `Missing required field: ${field}`);
+        return false;
+      }
+    }
+
+    return true;
   }
 
   /**

@@ -11,19 +11,20 @@
 
 import { NanoAgent, AgentCapability } from './NanoAgent';
 import { getPolicyPool } from '../policy/PolicyPoolService';
+import type { PolicyPoolService } from '../policy/PolicyPoolService';
 import type {
   PolicyDocument,
   PolicyCategory,
   PolicyLevel,
 } from '../../domain/schemas/PolicySchema';
 
-interface PolicyUpdateInput {
+export interface PolicyUpdateInput {
   sources: string[];
   checkInterval?: number; // in hours
   forceUpdate?: boolean;
 }
 
-interface PolicyUpdateResult {
+export interface PolicyUpdateResult {
   newPolicies: number;
   updatedPolicies: number;
   totalPolicies: number;
@@ -31,7 +32,7 @@ interface PolicyUpdateResult {
   summary: string;
 }
 
-interface PolicyChange {
+export interface PolicyChange {
   type: 'new' | 'updated' | 'expired';
   policyId: string;
   title: string;
@@ -100,8 +101,30 @@ Provide responses in JSON format with clear, actionable information.`,
     ];
   }
 
+  /**
+   * Ensure PolicyPoolService is initialized before use
+   */
+  private ensurePolicyPoolInitialized(): PolicyPoolService {
+    try {
+      const pool = getPolicyPool();
+      if (!pool) {
+        throw new Error('PolicyPoolService returned null/undefined');
+      }
+      this.log('info', 'PolicyPoolService initialized successfully');
+      return pool;
+    } catch (error) {
+      this.log('error', `PolicyPoolService init failed: ${error}`);
+      throw new Error(
+        `PolicyPoolService not available: ${error instanceof Error ? error.message : String(error)}`
+      );
+    }
+  }
+
   async execute(input: PolicyUpdateInput): Promise<PolicyUpdateResult> {
     this.log('Starting policy update check');
+
+    // Ensure PolicyPoolService is initialized
+    const policyPool = this.ensurePolicyPoolInitialized();
 
     const changes: PolicyChange[] = [];
     let newCount = 0;
@@ -123,7 +146,6 @@ Provide responses in JSON format with clear, actionable information.`,
     }
 
     // Get total policy count
-    const policyPool = getPolicyPool();
     const allPolicies = policyPool.getAllPolicies();
 
     // Generate summary

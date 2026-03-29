@@ -19,7 +19,6 @@ export type {
   PolicyUpdateInput,
   PolicyUpdateResult,
   PolicyChange,
-  PolicyAlert,
 } from './PolicyUpdateAgent';
 
 export { TariffUpdateAgent } from './TariffUpdateAgent';
@@ -78,3 +77,6 @@ export type {
   Table,
   Chart,
 } from './ReportGenerationAgent';
+
+export { getCommunicationLogger } from './AgentCommunicationLogger';
+export type { CommunicationLog, AgentMetrics } from './AgentCommunicationLogger';
