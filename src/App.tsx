@@ -24,6 +24,7 @@ import { ProjectListPage } from './components/ProjectListPage';
 import { ProjectDetailPage } from './components/ProjectDetailPage';
 import { SettingsPage } from './components/SettingsPage';
 import { AdminDashboard } from './components/admin';
+import { AgentMetricsDashboard } from './components/admin/AgentMetricsDashboard';
 
 // Import calculator components (for unauthenticated/demo mode)
 import { CalculatorForm } from './components/CalculatorForm';
@@ -271,6 +272,9 @@ function App() {
 
         {/* Demo Route (unauthenticated) */}
         <Route path="/demo" element={<DemoCalculator />} />
+
+        {/* Public Metrics Dashboard (unauthenticated) */}
+        <Route path="/admin/agent-metrics" element={<AgentMetricsDashboard refreshInterval={5000} />} />
 
         {/* Protected Routes */}
         <Route
